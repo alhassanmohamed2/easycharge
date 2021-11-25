@@ -23,19 +23,7 @@ void main() {
                   children: [
                 ElevatedButton(
                     onPressed: () {},
-                    child: Container(
-                      decoration: BoxDecoration(
-                        image: const DecorationImage(
-                            image: AssetImage("assets/vodafone1.png"),
-                            fit: BoxFit.cover),
-                        border: Border.all(width: 5, color: Colors.red),
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: const Image(
-                          image: AssetImage("assets/vodafone1.png")),
-                      height: 300,
-                      width: 300,
-                    ),
+                    child: Image.asset("assets/vodafone1.png"),
                     style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(100)))),
