@@ -11,8 +11,10 @@ void main() {
           body: Center(
             child: SizedBox(
               child: InkWell(
-                child: Image.network(
-                    "https://logoeps.com/wp-content/uploads/2013/06/vodafone-eps-vector-logo.png"),
+                child: Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage('assets/vodafone.png')))),
               ),
             ),
           ))));
