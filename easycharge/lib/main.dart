@@ -14,7 +14,7 @@ class MainScreen extends StatelessWidget {
     return Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/back.jpeg"),
+            image: AssetImage("assets/back3.gif"),
             fit: BoxFit.cover,
           ),
         ),
@@ -22,52 +22,52 @@ class MainScreen extends StatelessWidget {
             backgroundColor: Colors.transparent,
             endDrawer: Drawer(),
             appBar: AppBar(
+              backgroundColor: Colors.pink.shade700,
               title: const Text("E47nLy"),
               centerTitle: true,
             ),
             body: SafeArea(
-                child: Container(
-                    child: Padding(
-                        padding: const EdgeInsets.fromLTRB(5.0, 120.0, 5.0, 0),
-                        child: GridView(
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    mainAxisSpacing: 20,
-                                    crossAxisSpacing: 20),
-                            children: [
-                              ElevatedButton(
-                                  onPressed: () {},
-                                  child: Image.asset("assets/vodafone1.png"),
-                                  style: ElevatedButton.styleFrom(
-                                      primary: Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(50)))),
-                              ElevatedButton(
-                                  onPressed: () {},
-                                  child: Image.asset("assets/orange.png"),
-                                  style: ElevatedButton.styleFrom(
-                                      primary: Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(50)))),
-                              ElevatedButton(
-                                  onPressed: () {},
-                                  child: Image.asset("assets/we.png"),
-                                  style: ElevatedButton.styleFrom(
-                                      primary: Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(50)))),
-                              ElevatedButton(
-                                  onPressed: () {},
-                                  child: Image.asset("assets/Etisalat.jpg"),
-                                  style: ElevatedButton.styleFrom(
-                                      primary: Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(50)))),
-                            ]))))));
+                child: Padding(
+                    padding: const EdgeInsets.fromLTRB(5.0, 120.0, 5.0, 0),
+                    child: GridView(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 20,
+                                crossAxisSpacing: 20),
+                        children: [
+                          ElevatedButton(
+                              onPressed: () {},
+                              child: Image.asset("assets/vodafone1.png"),
+                              style: ElevatedButton.styleFrom(
+                                  primary: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(50)))),
+                          ElevatedButton(
+                              onPressed: () {},
+                              child: Image.asset("assets/orange.png"),
+                              style: ElevatedButton.styleFrom(
+                                  primary: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(50)))),
+                          ElevatedButton(
+                              onPressed: () {},
+                              child: Image.asset("assets/we.png"),
+                              style: ElevatedButton.styleFrom(
+                                  primary: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(50)))),
+                          ElevatedButton(
+                              onPressed: () {},
+                              child: Image.asset("assets/Etisalat1.png"),
+                              style: ElevatedButton.styleFrom(
+                                  primary: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(50)))),
+                        ])))));
   }
 }
