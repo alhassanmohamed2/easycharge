@@ -1,74 +1,15 @@
-// ignore_for_file: avoid_unnecessary_containers
-// ignore_for_file: prefer_const_constructors
+import 'package:easycharge/screens/card_images.dart';
 import 'package:flutter/material.dart';
+import 'package:easycharge/screens/home.dart';
+import 'package:easycharge/screens/options.dart';
 
 void main() {
-  runApp(MaterialApp(debugShowCheckedModeBanner: false, home: MainScreen()));
-}
-
-class MainScreen extends StatelessWidget {
-  const MainScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-
-    return Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/back3.gif"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Scaffold(
-            backgroundColor: Colors.transparent,
-            endDrawer: Drawer(),
-            appBar: AppBar(
-              backgroundColor: Colors.pink.shade700,
-              title: const Text("E47nLy"),
-              centerTitle: true,
-            ),
-            body: SafeArea(
-                child: Padding(
-                    padding: const EdgeInsets.fromLTRB(5.0, 120.0, 5.0, 0),
-                    child: GridView(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                mainAxisSpacing: 20,
-                                crossAxisSpacing: 20),
-                        children: [
-                          ElevatedButton(
-                              onPressed: () {},
-                              child: Image.asset("assets/vodafone1.png"),
-                              style: ElevatedButton.styleFrom(
-                                  primary: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(50)))),
-                          ElevatedButton(
-                              onPressed: () {},
-                              child: Image.asset("assets/orange.png"),
-                              style: ElevatedButton.styleFrom(
-                                  primary: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(50)))),
-                          ElevatedButton(
-                              onPressed: () {},
-                              child: Image.asset("assets/we.png"),
-                              style: ElevatedButton.styleFrom(
-                                  primary: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(50)))),
-                          ElevatedButton(
-                              onPressed: () {},
-                              child: Image.asset("assets/Etisalat1.png"),
-                              style: ElevatedButton.styleFrom(
-                                  primary: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(50)))),
-                        ])))));
-  }
+  runApp(MaterialApp(
+    routes: {
+      'options': (context) => Options(),
+      'cardImages': (context) => CardImages()
+    },
+    home: Home(),
+    debugShowCheckedModeBanner: false,
+  ));
 }
