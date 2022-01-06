@@ -1,8 +1,10 @@
 import 'package:easycharge/screens/drawer.dart';
+import 'package:easycharge/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile_vision_2/flutter_mobile_vision_2.dart';
 import 'package:easycharge/services/Ai_camera.dart';
 import 'package:easycharge/services/card_charge.dart';
+import 'package:path_provider/path_provider.dart';
 
 class Options extends StatefulWidget {
   @override
@@ -29,18 +31,23 @@ class _OptionsState extends State<Options> {
     String? value = comp_info["Item"][0];
     var comp_list = comp_info["Item"];
 
+    FocusNode myFocusNode = new FocusNode();
+
     return Scaffold(
         appBar: AppBar(
           title: Text(comp_info["title"]),
           centerTitle: true,
-          backgroundColor: Colors.purpleAccent,
+          backgroundColor: comp_info['color']['titlecol'],
         ),
         endDrawer: drawer(),
+        backgroundColor: Colors.grey[200],
         body: Container(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.only(top: 70, right: 10, left: 20),
             decoration: BoxDecoration(
                 image: DecorationImage(
-              image: AssetImage(comp_info["image"]),
+              image: AssetImage(
+                comp_info["image"],
+              ),
               fit: BoxFit.fill,
             )),
             child:
@@ -51,36 +58,43 @@ class _OptionsState extends State<Options> {
                 children: [
                   Expanded(
                       child: Container(
-                    padding: const EdgeInsets.only(top: 30, right: 10),
+                    padding: const EdgeInsets.only(top: 25, right: 15, left: 5),
                     child: TextField(
+                      focusNode: myFocusNode,
                       controller: card_num_field,
                       maxLength: 14,
                       keyboardType: TextInputType.phone,
-                      style: const TextStyle(color: Colors.purple),
+                      style: TextStyle(color: comp_info["color"]['input']),
                       decoration: InputDecoration(
-                          fillColor: Colors.purple[40],
-                          filled: true,
+                          labelText: "اكتب كود الشحن او قم باستخراجه بالكاميرا",
+                          labelStyle: TextStyle(
+                            fontSize: 13,
+                            color: myFocusNode.hasFocus
+                                ? Colors.white
+                                : comp_info["color"]['label'],
+                          ),
+                          filled: false,
                           enabled: true,
                           focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(40),
-                              borderSide: const BorderSide(
-                                  color: Colors.white, width: 3)),
+                              borderSide: BorderSide(
+                                  color: comp_info["color"]['border'],
+                                  width: 3)),
                           enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(40),
-                              borderSide: const BorderSide(
-                                  color: Colors.white, width: 3))),
+                              borderSide: BorderSide(
+                                  color: comp_info['color']['border'],
+                                  width: 2))),
                     ),
-                    width: 200,
                   )),
                   MaterialButton(
                     onPressed: () async {
-                      String? card_num = await ai_cam.ExtractNumber();
-                      setState(() {
-                        card_num_field.text = ai_cam.cardnumber;
-                      });
+                      await ai_cam.ExtractNumber();
+
+                      await ai_cam.textFieldText(card_num_field);
                     },
                     child: const Icon(Icons.camera_alt_rounded),
-                    color: Colors.purple,
+                    color: comp_info['color']['titlecol'],
                     minWidth: 50,
                     height: 50,
                     padding: const EdgeInsets.only(bottom: 10, top: 10),
@@ -90,19 +104,36 @@ class _OptionsState extends State<Options> {
                 ],
               ),
               DropdownButton<String>(
-                value: value,
+                hint: Text(
+                  "بعد كتابه كود الشحن اختر طريقه الشحن من هنا",
+                  style: TextStyle(
+                      fontSize: 15,
+                      color: comp_info["color"]['hint'],
+                      fontWeight: FontWeight.bold),
+                ),
                 icon: const Icon(Icons.arrow_downward),
-                elevation: 16,
-                style: const TextStyle(color: Colors.deepPurple),
+                elevation: 1,
+                style: const TextStyle(color: Colors.black),
                 underline: Container(
-                  height: 2,
-                  color: Colors.deepPurpleAccent,
+                  height: 1,
+                  color: Colors.white,
                 ),
                 onChanged: (String? newValue) {
                   setState(() {
-                    value = newValue!;
-                    ChargeCard(card_num_field.text,
-                        comp_info['Codes'][comp_list.indexOf(newValue)]);
+                    setState(() async {
+                      ImageDatabase images = ImageDatabase();
+
+                      var no = images.no_paths;
+                      var extDir = await getApplicationDocumentsDirectory();
+                      var dirPath = extDir.path;
+                      value = newValue!;
+                      ChargeCard(
+                          card_num_field.text,
+                          comp_info['Codes'][comp_list.indexOf(newValue)],
+                          dirPath,
+                          no,
+                          context);
+                    });
                   });
                 },
                 items: comp_list.map<DropdownMenuItem<String>>((String value) {

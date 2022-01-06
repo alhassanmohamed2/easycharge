@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../translations/locale_keys.g.dart';
+
 Map card_options = {
   "Vodafone": {
     "Item": [
@@ -6,8 +10,16 @@ Map card_options = {
       "لشحن فلكسات"
     ],
     "Codes": ['858', '858*1', '858*2'],
-    "image": "assets/options_background/vodafone_animation.gif",
-    "title": "خدمات فودافون"
+    "image": "assets/options_background/vodafone.jpg",
+    "title": "خدمات فودافون",
+    'color': {
+      'titlecol': Colors.red,
+      'cam': Colors.red,
+      'input': Colors.white,
+      'hint': Colors.white,
+      'border': Colors.red,
+      'label': Colors.white
+    },
   },
   "Etisalat": {
     "Item": [
@@ -16,20 +28,44 @@ Map card_options = {
       "لشحن ميكسات"
     ],
     "Codes": ['556', '556*2', '556*1'],
-    "image": "assets/options_background/Etisalat_animation.gif",
-    "title": "خدمات اتصالات"
+    "image": "assets/options_background/Eitsaat.jpg",
+    "title": "خدمات اتصالات",
+    'color': {
+      'titlecol': Colors.green,
+      'cam': Colors.greenAccent,
+      'input': Colors.greenAccent,
+      'hint': Colors.greenAccent,
+      'border': Colors.greenAccent,
+      'label': Colors.green
+    },
   },
   "Orange": {
     "Item": ["لشحن كارت عادي /فكه", "لشحن كارت اكستر"],
     "Codes": ['102', '102'],
-    "image": "assets/options_background/orange_animation.gif",
-    "title": "خدمات أورانج"
+    "image": "assets/options_background/orange.jpg",
+    "title": "خدمات أورانج",
+    'color': {
+      'titlecol': Colors.orange,
+      'cam': Colors.orange,
+      'input': Colors.white,
+      'hint': Colors.orange,
+      'border': Colors.orange,
+      'label': Colors.yellow
+    },
   },
   "We": {
     "Item": ["لشحن كارت عادي/فكه", "لشحن وحدات ", "لشحن ميجابايت انترنت"],
     "Codes": ['555', '566', '599'],
-    "image": "assets/options_background/we.jpeg",
-    "title": "خدمات وى"
+    "image": "assets/options_background/We.jpg",
+    "title": "خدمات وى",
+    'color': {
+      'titlecol': Colors.purple,
+      'cam': Colors.purpleAccent,
+      'input': Colors.purpleAccent,
+      'hint': Colors.white,
+      'border': Colors.purple,
+      'label': Colors.white
+    },
   }
 };
 
@@ -40,7 +76,7 @@ Map team_members = {
     'Mahmoud Nagy Elsayed',
     'Sara Abdulah Nassar',
     'Alaa Mohamed Mohamed',
-    'Duaa Mostafa Abdulbaset',
+    'Duaa Mustafa Abdulbaset',
     'Doaa Gamal Eltohamy'
   ],
   'personal_iamge': [
@@ -54,9 +90,12 @@ Map team_members = {
   ]
 };
 List<String> steps = [
-  "choose your company first",
-  "open your camera and take pic to card",
-  "choose your offer if you would",
-  "the app will charge your card imeduatly",
-  "if you have any problems keep it in below field plz"
+  "first",
+  "second",
+  "third",
+  "fourth",
+  "fifth",
+  "sixthly",
+  "seventh",
+  "eighth",
 ];

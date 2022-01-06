@@ -11,6 +11,7 @@ class Ai_cam {
   List<OcrText> textsOcr = [];
   var cardnumber = "";
   var images = ImageDatabase();
+
   Future<void> initPlatformState() async {
     String platformVersion;
     try {
@@ -29,32 +30,38 @@ class Ai_cam {
         }));
     List<OcrText> texts = [];
     Size _scanpreviewOcr = previewOcr ?? FlutterMobileVision.PREVIEW;
+    var width = (_scanpreviewOcr.width * 0.50).toInt();
+    print(_scanpreviewOcr.width);
     await images.getDataBase();
     await images.openDataBase();
     await images.dataGet();
     var no = images.no_paths;
-    var extDir = await getExternalStorageDirectory();
-    var dirPath = extDir?.path;
+    var extDir = await getApplicationDocumentsDirectory();
+    var dirPath = extDir.path;
     try {
       texts = await FlutterMobileVision.read(
+          flash: true,
           autoFocus: true,
           imagePath: '$dirPath/${no + 1}.jpg',
           preview: _scanpreviewOcr,
           waitTap: true,
           multiple: false,
           camera: cameraOcr ?? FlutterMobileVision.CAMERA_BACK,
-          fps: 2.0,
+          fps: 15.0,
           showText: true,
-          scanArea: Size(700, 100));
+          scanArea: Size((width), 150));
     } on Exception {
       texts.add(OcrText('Failed to recognize text.'));
     }
 
-    await images.dataUpdate('$dirPath/${no + 1}.jpg');
     textsOcr = texts;
     for (OcrText text in texts) {
       var exctract_cardnumber = '${text.value}'.replaceAll(RegExp(r"\D"), "");
       cardnumber = '${exctract_cardnumber}';
     }
+  }
+
+  Future textFieldText(var TextCont) async {
+    TextCont.text = cardnumber;
   }
 }

@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class Appbar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.pink.shade700,
-      title: const Text("اشحنلى"),
+      flexibleSpace: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: <Color>[Colors.purpleAccent, Colors.blue])),
+      ),
+      title: Text(
+        tr('basic'),
+      ),
       centerTitle: true,
     );
   }

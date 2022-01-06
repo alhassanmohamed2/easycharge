@@ -20,7 +20,7 @@ class About extends StatelessWidget {
                     decoration: BoxDecoration(
                         border: Border.all(color: Colors.purple.shade300),
                         color: Colors.purple.shade100),
-                    child: Row(
+                    child: Column(
                       children: [
                         Container(
                           child: CircleAvatar(
