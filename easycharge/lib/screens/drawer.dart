@@ -43,19 +43,13 @@ class drawer extends StatelessWidget {
         Center(
             child: MaterialButton(
           onPressed: () async {
-            var Images = [];
-            var dates = [];
             ImageDatabase images = ImageDatabase();
             await images.getDataBase();
             await images.openDataBase();
             await images.dataGet();
-            Images = images.ImagesPaths;
-            dates = images.dates;
-            var Images_no = images.no_paths;
             Navigator.pushNamed(context, "cardImages", arguments: {
-              'images': Images,
-              'images_no': Images_no,
-              'dates': dates
+              'images': images.ImagesPaths,
+              'dates': images.dates
             });
           },
           child: Row(
@@ -131,7 +125,7 @@ class drawer extends StatelessWidget {
                 ),
                 onPressed: () async {
                   await context.setLocale(
-                    const Locale('en'),
+                    Locale('en'),
                   );
                   Navigator.pop(context);
                 },
@@ -142,7 +136,7 @@ class drawer extends StatelessWidget {
                 ),
                 onPressed: () async {
                   await context.setLocale(
-                    const Locale('ar'),
+                    Locale('ar'),
                   );
                   Navigator.pop(context);
                 },

@@ -30,7 +30,7 @@ class _OptionsState extends State<Options> {
     String? value = comp_info["Item"][0];
     var comp_list = comp_info["Item"];
 
-    FocusNode myFocusNode = new FocusNode();
+    FocusNode myFocusNode = FocusNode();
 
     return Scaffold(
         appBar: AppBar(
@@ -61,7 +61,7 @@ class _OptionsState extends State<Options> {
                     child: TextField(
                       focusNode: myFocusNode,
                       controller: card_num_field,
-                      maxLength: 14,
+                      maxLength: 16,
                       keyboardType: TextInputType.phone,
                       style: TextStyle(color: comp_info["color"]['input']),
                       decoration: InputDecoration(
