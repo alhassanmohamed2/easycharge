@@ -31,7 +31,6 @@ class Ai_cam {
     List<OcrText> texts = [];
     Size _scanpreviewOcr = previewOcr ?? FlutterMobileVision.PREVIEW;
     var width = (_scanpreviewOcr.width * 0.50).toInt();
-    print(_scanpreviewOcr.width);
     await images.getDataBase();
     await images.openDataBase();
     await images.dataGet();
@@ -56,8 +55,7 @@ class Ai_cam {
 
     textsOcr = texts;
     for (OcrText text in texts) {
-      var exctract_cardnumber = '${text.value}'.replaceAll(RegExp(r"\D"), "");
-      cardnumber = '${exctract_cardnumber}';
+      cardnumber = text.value.replaceAll(RegExp(r"\D"), "");
     }
   }
 

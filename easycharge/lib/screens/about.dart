@@ -10,13 +10,13 @@ class About extends StatelessWidget {
         appBar: Appbar(),
         endDrawer: drawer(),
         body: Padding(
-            padding: EdgeInsets.all(7),
+            padding: const EdgeInsets.all(7),
             child: ListView.builder(
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.all(7),
                   child: Container(
-                    padding: EdgeInsets.all(7),
+                    padding: const EdgeInsets.all(7),
                     decoration: BoxDecoration(
                         border: Border.all(color: Colors.purple.shade300),
                         color: Colors.purple.shade100),
@@ -30,9 +30,9 @@ class About extends StatelessWidget {
                           ),
                         ),
                         Container(
-                            padding: EdgeInsets.all(6),
+                            padding: const EdgeInsets.all(6),
                             child: Text(team_members['names'][index],
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 18.0, color: Colors.black)))
                       ],
                     ),

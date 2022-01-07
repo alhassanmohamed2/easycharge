@@ -13,9 +13,9 @@ Future<void> main() async {
   runApp(MaterialApp(
     home: EasyLocalization(
         path: 'assets/translations',
-        supportedLocales: [Locale('en'), Locale('ar')],
-        fallbackLocale: Locale('en'),
-        assetLoader: CodegenLoader(),
+        supportedLocales: const [Locale('en'), Locale('ar')],
+        fallbackLocale: const Locale('en'),
+        assetLoader: const CodegenLoader(),
         child: Home()),
     routes: {
       'options': (context) => Options(),

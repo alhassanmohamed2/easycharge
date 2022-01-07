@@ -70,7 +70,7 @@ class ImageDatabase {
               border: Border.all(color: Colors.black),
               borderRadius: BorderRadius.circular(10)),
           padding: const EdgeInsets.all(25),
-          margin: EdgeInsets.all(5),
+          margin: const EdgeInsets.all(5),
           child: ExpansionTile(title: Text("${dates[i]['date']}"), children: [
             ListView.builder(
               scrollDirection: Axis.vertical,

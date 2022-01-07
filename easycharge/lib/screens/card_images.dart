@@ -2,7 +2,6 @@ import 'package:easycharge/screens/AppBar.dart';
 import 'package:easycharge/screens/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:easycharge/services/database.dart';
-import 'dart:io';
 
 class CardImages extends StatefulWidget {
   @override
@@ -20,7 +19,7 @@ class _CardImagesState extends State<CardImages> {
         appBar: Appbar(),
         endDrawer: drawer(),
         body: Padding(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: SingleChildScrollView(
                 child: Column(
               children: Images_date,

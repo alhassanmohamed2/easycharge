@@ -26,7 +26,6 @@ class _OptionsState extends State<Options> {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: dead_code, dead_code
     final Map comp_info = ModalRoute.of(context)?.settings.arguments as Map;
     String? value = comp_info["Item"][0];
     var comp_list = comp_info["Item"];
