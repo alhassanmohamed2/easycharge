@@ -13,8 +13,8 @@ class drawer extends StatelessWidget {
       children: [
         Container(
           color: Colors.deepPurple,
-          padding: EdgeInsets.all(110),
-          margin: EdgeInsets.only(
+          padding: const EdgeInsets.all(110),
+          margin: const EdgeInsets.only(
             bottom: 10,
           ),
         ),
@@ -27,7 +27,7 @@ class drawer extends StatelessWidget {
             );
           },
           child: Row(
-            children: [
+            children: const [
               Icon(Icons.home),
               Padding(padding: EdgeInsets.all(5)),
               Text(
@@ -36,7 +36,7 @@ class drawer extends StatelessWidget {
               )
             ],
           ),
-          padding: EdgeInsets.only(bottom: 30, left: 30, top: 30),
+          padding: const EdgeInsets.only(bottom: 30, left: 30, top: 30),
           elevation: 20,
           splashColor: Colors.deepPurple,
         )),
@@ -59,7 +59,7 @@ class drawer extends StatelessWidget {
             });
           },
           child: Row(
-            children: [
+            children: const [
               Icon(Icons.card_giftcard),
               Padding(padding: EdgeInsets.all(5)),
               Text(
@@ -68,7 +68,7 @@ class drawer extends StatelessWidget {
               )
             ],
           ),
-          padding: EdgeInsets.only(bottom: 30, left: 30, top: 30),
+          padding: const EdgeInsets.only(bottom: 30, left: 30, top: 30),
           elevation: 20,
           splashColor: Colors.deepPurple,
         )),
@@ -81,7 +81,7 @@ class drawer extends StatelessWidget {
             );
           },
           child: Row(
-            children: [
+            children: const [
               Icon(Icons.help),
               Padding(padding: EdgeInsets.all(5)),
               Text(
@@ -90,7 +90,7 @@ class drawer extends StatelessWidget {
               )
             ],
           ),
-          padding: EdgeInsets.only(bottom: 30, left: 30, top: 30),
+          padding: const EdgeInsets.only(bottom: 30, left: 30, top: 30),
           elevation: 20,
           splashColor: Colors.deepPurple,
         )),
@@ -103,7 +103,7 @@ class drawer extends StatelessWidget {
             );
           },
           child: Row(
-            children: [
+            children: const [
               Icon(Icons.help_center),
               Padding(padding: EdgeInsets.all(5)),
               Text(
@@ -115,11 +115,11 @@ class drawer extends StatelessWidget {
               )
             ],
           ),
-          padding: EdgeInsets.only(bottom: 30, left: 30, top: 30),
+          padding: const EdgeInsets.only(bottom: 30, left: 30, top: 30),
           elevation: 20,
           splashColor: Colors.deepPurple,
         )),
-        SizedBox(
+        const SizedBox(
           height: 15,
         ),
         Row(
@@ -131,22 +131,22 @@ class drawer extends StatelessWidget {
                 ),
                 onPressed: () async {
                   await context.setLocale(
-                    Locale('en'),
+                    const Locale('en'),
                   );
                   Navigator.pop(context);
                 },
-                child: Text("English")),
+                child: const Text("English")),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   primary: Colors.deepPurple,
                 ),
                 onPressed: () async {
                   await context.setLocale(
-                    Locale('ar'),
+                    const Locale('ar'),
                   );
                   Navigator.pop(context);
                 },
-                child: Text("العربية"))
+                child: const Text("العربية"))
           ],
         )
       ],

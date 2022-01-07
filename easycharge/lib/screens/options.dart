@@ -121,9 +121,6 @@ class _OptionsState extends State<Options> {
                 onChanged: (String? newValue) {
                   setState(() {
                     setState(() async {
-                      ImageDatabase images = ImageDatabase();
-
-                      var no = images.no_paths;
                       var extDir = await getApplicationDocumentsDirectory();
                       var dirPath = extDir.path;
                       value = newValue!;
@@ -131,7 +128,6 @@ class _OptionsState extends State<Options> {
                           card_num_field.text,
                           comp_info['Codes'][comp_list.indexOf(newValue)],
                           dirPath,
-                          no,
                           context);
                     });
                   });
