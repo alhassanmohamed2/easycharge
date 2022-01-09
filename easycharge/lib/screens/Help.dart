@@ -17,6 +17,9 @@ class _HelpState extends State<Help> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        locale: context.locale,
+        supportedLocales: context.supportedLocales,
+        localizationsDelegates: context.localizationDelegates,
         routes: {
           'options': (context) => Options(),
           'cardImages': (context) => CardImages()

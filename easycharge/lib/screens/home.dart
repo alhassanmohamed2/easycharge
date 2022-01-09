@@ -30,7 +30,7 @@ class Home extends StatelessWidget {
                       fit: BoxFit.cover)),
               child: SafeArea(
                   child: Padding(
-                      padding: const EdgeInsets.fromLTRB(5.0, 120.0, 5.0, 0),
+                      padding: const EdgeInsets.fromLTRB(7.0, 120.0, 7.0, 0),
                       child: GridView(
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
