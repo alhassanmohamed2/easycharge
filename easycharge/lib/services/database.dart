@@ -16,7 +16,7 @@ class ImageDatabase {
   var Images_date_con;
   Future getDataBase() async {
     var databasesPath = await getDatabasesPath();
-    path = join(databasesPath, 'demo.db');
+    path = join(databasesPath, 'cards.db');
   }
 
   Future openDataBase() async {
