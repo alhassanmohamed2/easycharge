@@ -27,7 +27,11 @@ class CodegenLoader extends AssetLoader {
     "seventh":
         "إذا كنت تريد معرفة أي شيء منا أو الاتصال بنا ، فالرجاء الانتقال إلى صفحه حول ",
     "eighth": "شكرًا لك على استخدام تطبيقنا ، أتمنى أن تكون لديك تجربة مفيدة",
-    "basic": "أشحنلى"
+    "basic": "أشحنلى",
+    "Home": "الصفحة الرئيسية",
+    "Cards": "الكروت المشحونة",
+    "Help": "المساعدة ",
+    "About": "حول "
   };
   static const Map<String, dynamic> en = {
     "first": "first , please choose company that your network belongs to it ",
@@ -45,7 +49,11 @@ class CodegenLoader extends AssetLoader {
         "if you want to know any thing of us or connect with us please go to About Page",
     "eighth":
         "thank you for using our app , hope you have a useful experience ",
-    "basic": "E47nly"
+    "basic": "E47nly",
+    "Home": "Home Page",
+    "Cards": "Charged Cards",
+    "Help": "Help",
+    "About": "About "
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {
     "ar": ar,

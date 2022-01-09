@@ -27,16 +27,16 @@ class drawer extends StatelessWidget {
             );
           },
           child: Row(
-            children: const [
+            children: [
               Icon(Icons.home),
               Padding(padding: EdgeInsets.all(5)),
               Text(
-                "Home Page",
+                tr('Home'),
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               )
             ],
           ),
-          padding: const EdgeInsets.only(bottom: 30, left: 30, top: 30),
+          padding: const EdgeInsets.all(30),
           elevation: 20,
           splashColor: Colors.deepPurple,
         )),
@@ -53,16 +53,16 @@ class drawer extends StatelessWidget {
             });
           },
           child: Row(
-            children: const [
+            children: [
               Icon(Icons.card_giftcard),
               Padding(padding: EdgeInsets.all(5)),
               Text(
-                "Charged Cards",
+                tr('Cards'),
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               )
             ],
           ),
-          padding: const EdgeInsets.only(bottom: 30, left: 30, top: 30),
+          padding: const EdgeInsets.all(30),
           elevation: 20,
           splashColor: Colors.deepPurple,
         )),
@@ -75,16 +75,16 @@ class drawer extends StatelessWidget {
             );
           },
           child: Row(
-            children: const [
+            children: [
               Icon(Icons.help),
               Padding(padding: EdgeInsets.all(5)),
               Text(
-                "Help",
+                tr('Help'),
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               )
             ],
           ),
-          padding: const EdgeInsets.only(bottom: 30, left: 30, top: 30),
+          padding: const EdgeInsets.all(30),
           elevation: 20,
           splashColor: Colors.deepPurple,
         )),
@@ -97,11 +97,11 @@ class drawer extends StatelessWidget {
             );
           },
           child: Row(
-            children: const [
+            children: [
               Icon(Icons.help_center),
               Padding(padding: EdgeInsets.all(5)),
               Text(
-                "About",
+                tr('About'),
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -109,7 +109,7 @@ class drawer extends StatelessWidget {
               )
             ],
           ),
-          padding: const EdgeInsets.only(bottom: 30, left: 30, top: 30),
+          padding: const EdgeInsets.all(30),
           elevation: 20,
           splashColor: Colors.deepPurple,
         )),

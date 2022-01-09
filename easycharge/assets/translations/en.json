@@ -7,5 +7,9 @@
     "sixthly": "the app will charge your card and send comfirmation message to you ",
     "seventh": "if you want to know any thing of us or connect with us please go to About Page",
     "eighth": "thank you for using our app , hope you have a useful experience ",
-    "basic": "E47nly"
-  }
+    "basic": "E47nly",
+    "Home": "Home Page",
+    "Cards": "Charged Cards",
+    "Help": "Help",
+    "About": "About "
+}
