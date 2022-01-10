@@ -1,5 +1,6 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:easycharge/screens/drawer.dart';
-import 'package:easycharge/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile_vision_2/flutter_mobile_vision_2.dart';
 import 'package:easycharge/services/Ai_camera.dart';

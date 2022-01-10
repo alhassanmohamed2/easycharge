@@ -48,7 +48,7 @@ class Ai_cam {
           camera: cameraOcr ?? FlutterMobileVision.CAMERA_BACK,
           fps: 15.0,
           showText: true,
-          scanArea: Size((width), 150));
+          scanArea: Size((width), 130));
     } on Exception {
       texts.add(OcrText('Failed to recognize text.'));
     }
