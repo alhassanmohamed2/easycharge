@@ -9,7 +9,14 @@ class CardImages extends StatefulWidget {
 }
 
 class _CardImagesState extends State<CardImages> {
-  List<Widget> Images_date = [];
+  List<Widget> Images_date = [
+    Container(
+        margin: const EdgeInsets.all(20.0),
+        child: const Text(
+          "Click the Button Below ",
+          style: TextStyle(fontSize: 25.0, color: Colors.grey),
+        ))
+  ];
   @override
   Widget build(BuildContext context) {
     final Map Images = ModalRoute.of(context)?.settings.arguments as Map;
@@ -30,7 +37,18 @@ class _CardImagesState extends State<CardImages> {
             ImageDatabase images_con = ImageDatabase();
             await images_con.images_func(Images['dates'], Images['images']);
             setState(() {
-              Images_date = images_con.Images_date_con;
+              if ((images_con.Images_date_con).length == 1) {
+                Images_date = [
+                  Container(
+                      margin: const EdgeInsets.all(20.0),
+                      child: const Text(
+                        "No Cards Founded",
+                        style: TextStyle(fontSize: 25.0, color: Colors.grey),
+                      ))
+                ];
+              } else {
+                Images_date = images_con.Images_date_con;
+              }
             });
           },
         ));
