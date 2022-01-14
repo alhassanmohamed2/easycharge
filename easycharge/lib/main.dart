@@ -1,6 +1,5 @@
 import 'package:easycharge/screens/card_images.dart';
 import 'package:easycharge/translations/codegen_loader.g.dart';
-
 import 'package:flutter/material.dart';
 import 'package:easycharge/screens/home.dart';
 import 'package:easycharge/screens/options.dart';

@@ -12,7 +12,9 @@ class drawer extends StatelessWidget {
         child: Column(
       children: [
         Container(
-          color: Colors.deepPurple,
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/drawer.jpg'), fit: BoxFit.cover)),
           padding: const EdgeInsets.all(110),
           margin: const EdgeInsets.only(
             bottom: 10,
@@ -22,17 +24,16 @@ class drawer extends StatelessWidget {
             child: MaterialButton(
           onPressed: () {
             Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Home()),
-            );
+                context, MaterialPageRoute(builder: (context) => Home()));
           },
           child: Row(
             children: [
-              Icon(Icons.home),
-              Padding(padding: EdgeInsets.all(5)),
+              const Icon(Icons.home),
+              const Padding(padding: EdgeInsets.all(5)),
               Text(
                 tr('Home'),
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               )
             ],
           ),
@@ -54,11 +55,12 @@ class drawer extends StatelessWidget {
           },
           child: Row(
             children: [
-              Icon(Icons.card_giftcard),
-              Padding(padding: EdgeInsets.all(5)),
+              const Icon(Icons.card_giftcard),
+              const Padding(padding: EdgeInsets.all(5)),
               Text(
                 tr('Cards'),
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               )
             ],
           ),
@@ -76,11 +78,12 @@ class drawer extends StatelessWidget {
           },
           child: Row(
             children: [
-              Icon(Icons.help),
-              Padding(padding: EdgeInsets.all(5)),
+              const Icon(Icons.help),
+              const Padding(padding: EdgeInsets.all(5)),
               Text(
                 tr('Help'),
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               )
             ],
           ),
@@ -98,11 +101,11 @@ class drawer extends StatelessWidget {
           },
           child: Row(
             children: [
-              Icon(Icons.help_center),
-              Padding(padding: EdgeInsets.all(5)),
+              const Icon(Icons.help_center),
+              const Padding(padding: EdgeInsets.all(5)),
               Text(
                 tr('About'),
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     fontStyle: FontStyle.normal),

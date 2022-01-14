@@ -17,24 +17,21 @@ ChargeCard(String card_number, String code, var dirPath, var context) async {
 }
 
 showAlertDialog(BuildContext context) {
-  // set up the button
   Widget okButton = TextButton(
-    child: Text("OK"),
+    child: const Text("OK"),
     onPressed: () {
       Navigator.pop(context);
     },
   );
 
-  // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    title: Text("Error"),
-    content: Text("The card number is wrong"),
+    title: const Text("Error"),
+    content: const Text("The card number is wrong"),
     actions: [
       okButton,
     ],
   );
 
-  // show the dialog
   return showDialog(
     context: context,
     builder: (BuildContext context) {

@@ -4,27 +4,31 @@ import 'package:easycharge/screens/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:easycharge/services/options_info.dart';
 import 'package:easy_localization/easy_localization.dart';
-
 import 'package:easycharge/screens/options.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        locale: context.locale,
+        supportedLocales: context.supportedLocales,
+        localizationsDelegates: context.localizationDelegates,
         routes: {
           'options': (context) => Options(),
           'cardImages': (context) => CardImages()
         },
         debugShowCheckedModeBanner: false,
-        locale: context.locale,
-        supportedLocales: context.supportedLocales,
-        localizationsDelegates: context.localizationDelegates,
         home: Scaffold(
             backgroundColor: Colors.grey[300],
             endDrawer: drawer(),
             appBar: Appbar(),
             body: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage('assets/home_screen/home.jpeg'),
                       fit: BoxFit.cover)),
