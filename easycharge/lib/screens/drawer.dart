@@ -23,7 +23,7 @@ class drawer extends StatelessWidget {
         Center(
             child: MaterialButton(
           onPressed: () {
-            Navigator.pushReplacement(
+            Navigator.push(
                 context, MaterialPageRoute(builder: (context) => Home()));
           },
           child: Row(
