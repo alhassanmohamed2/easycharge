@@ -30,12 +30,15 @@ class _OptionsState extends State<Options> {
   @override
   Widget build(BuildContext context) {
     final Map comp_info = ModalRoute.of(context)?.settings.arguments as Map;
-    String? value = comp_info["Item"][0];
-    var comp_list = comp_info["Item"];
+    String? value = comp_info['info']["Item"][0];
+    var comp_list = comp_info['info']["Item"];
 
     FocusNode myFocusNode = FocusNode();
 
     return MaterialApp(
+        locale: comp_info['local'][0],
+        supportedLocales: comp_info['local'][1],
+        localizationsDelegates: comp_info['local'][2],
         routes: {
           'options': (context) => Options(),
           'cardImages': (context) => CardImages()
@@ -43,9 +46,9 @@ class _OptionsState extends State<Options> {
         debugShowCheckedModeBanner: false,
         home: Scaffold(
             appBar: AppBar(
-              title: Text(comp_info["title"]),
+              title: Text(comp_info['info']["title"]),
               centerTitle: true,
-              backgroundColor: comp_info['color']['titlecol'],
+              backgroundColor: comp_info['info']['color']['titlecol'],
             ),
             endDrawer: drawer(),
             backgroundColor: Colors.grey[200],
@@ -54,7 +57,7 @@ class _OptionsState extends State<Options> {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                   image: AssetImage(
-                    comp_info["image"],
+                    comp_info['info']["image"],
                   ),
                   fit: BoxFit.fill,
                 )),
@@ -74,8 +77,8 @@ class _OptionsState extends State<Options> {
                               controller: card_num_field,
                               maxLength: 16,
                               keyboardType: TextInputType.phone,
-                              style:
-                                  TextStyle(color: comp_info["color"]['input']),
+                              style: TextStyle(
+                                  color: comp_info['info']["color"]['input']),
                               decoration: InputDecoration(
                                   labelText:
                                       "اكتب كود الشحن او قم باستخراجه بالكاميرا",
@@ -83,19 +86,21 @@ class _OptionsState extends State<Options> {
                                     fontSize: 13,
                                     color: myFocusNode.hasFocus
                                         ? Colors.white
-                                        : comp_info["color"]['label'],
+                                        : comp_info['info']["color"]['label'],
                                   ),
                                   filled: false,
                                   enabled: true,
                                   focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(40),
                                       borderSide: BorderSide(
-                                          color: comp_info["color"]['border'],
+                                          color: comp_info['info']["color"]
+                                              ['border'],
                                           width: 3)),
                                   enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(40),
                                       borderSide: BorderSide(
-                                          color: comp_info['color']['border'],
+                                          color: comp_info['info']['color']
+                                              ['border'],
                                           width: 2))),
                             ),
                           )),
@@ -106,7 +111,7 @@ class _OptionsState extends State<Options> {
                               await ai_cam.textFieldText(card_num_field);
                             },
                             child: const Icon(Icons.camera_alt_rounded),
-                            color: comp_info['color']['titlecol'],
+                            color: comp_info['info']['color']['titlecol'],
                             minWidth: 50,
                             height: 50,
                             padding: const EdgeInsets.only(bottom: 10, top: 10),
@@ -120,7 +125,7 @@ class _OptionsState extends State<Options> {
                           "بعد كتابه كود الشحن اختر طريقه الشحن من هنا",
                           style: TextStyle(
                               fontSize: 15,
-                              color: comp_info["color"]['hint'],
+                              color: comp_info['info']["color"]['hint'],
                               fontWeight: FontWeight.bold),
                         ),
                         icon: const Icon(Icons.arrow_downward),
@@ -138,8 +143,9 @@ class _OptionsState extends State<Options> {
                               var dirPath = extDir.path;
                               value = newValue!;
                               ChargeCard(
+                                  ai_cam.cardnumber,
                                   card_num_field.text,
-                                  comp_info['Codes']
+                                  comp_info['info']['Codes']
                                       [comp_list.indexOf(newValue)],
                                   dirPath,
                                   context);

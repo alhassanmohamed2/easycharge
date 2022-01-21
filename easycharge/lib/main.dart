@@ -13,7 +13,7 @@ Future<void> main() async {
     home: EasyLocalization(
         path: 'assets/translations',
         supportedLocales: const [Locale('en'), Locale('ar')],
-        fallbackLocale: const Locale('en'),
+        fallbackLocale: const Locale('ar'),
         assetLoader: const CodegenLoader(),
         child: Home()),
     routes: {

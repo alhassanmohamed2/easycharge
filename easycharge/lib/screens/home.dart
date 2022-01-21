@@ -45,7 +45,14 @@ class _HomeState extends State<Home> {
                             ElevatedButton(
                                 onPressed: () {
                                   Navigator.pushNamed(context, "options",
-                                      arguments: card_options["Vodafone"]);
+                                      arguments: {
+                                        'info': card_options["Vodafone"],
+                                        'local': [
+                                          context.locale,
+                                          context.supportedLocales,
+                                          context.localizationDelegates
+                                        ]
+                                      });
                                 },
                                 child: Image.asset(
                                     "assets/home_screen/vodafone.png"),
@@ -57,7 +64,14 @@ class _HomeState extends State<Home> {
                             ElevatedButton(
                                 onPressed: () {
                                   Navigator.pushNamed(context, "options",
-                                      arguments: card_options["Orange"]);
+                                      arguments: {
+                                        'info': card_options["Orange"],
+                                        'local': [
+                                          context.locale,
+                                          context.supportedLocales,
+                                          context.localizationDelegates
+                                        ]
+                                      });
                                 },
                                 child: Image.asset(
                                     "assets/home_screen/orange.png"),
@@ -69,7 +83,14 @@ class _HomeState extends State<Home> {
                             ElevatedButton(
                                 onPressed: () {
                                   Navigator.pushNamed(context, "options",
-                                      arguments: card_options["We"]);
+                                      arguments: {
+                                        'info': card_options["We"],
+                                        'local': [
+                                          context.locale,
+                                          context.supportedLocales,
+                                          context.localizationDelegates
+                                        ]
+                                      });
                                 },
                                 child: Image.asset("assets/home_screen/we.png"),
                                 style: ElevatedButton.styleFrom(
@@ -80,7 +101,14 @@ class _HomeState extends State<Home> {
                             ElevatedButton(
                                 onPressed: () {
                                   Navigator.pushNamed(context, "options",
-                                      arguments: card_options["Etisalat"]);
+                                      arguments: {
+                                        'info': card_options["Etisalat"],
+                                        'local': [
+                                          context.locale,
+                                          context.supportedLocales,
+                                          context.localizationDelegates
+                                        ]
+                                      });
                                 },
                                 child: Image.asset(
                                     "assets/home_screen/etisalat.png"),
