@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors, file_names, non_constant_identifier_names
+
 import 'package:easycharge/screens/AppBar.dart';
 import 'package:easycharge/screens/card_images.dart';
 import 'package:easycharge/screens/drawer.dart';
@@ -27,7 +29,7 @@ class _HelpState extends State<Help> {
         debugShowCheckedModeBanner: false,
         home: Scaffold(
             appBar: Appbar(),
-            endDrawer: drawer(),
+            endDrawer: const drawer(),
             body: Stepper(
               currentStep: _index,
               onStepCancel: () {

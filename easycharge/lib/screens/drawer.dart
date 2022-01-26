@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:easycharge/screens/Help.dart';
 import 'package:easycharge/screens/about.dart';
 import 'package:easycharge/screens/home.dart';
@@ -6,6 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class drawer extends StatelessWidget {
+  final String screen;
+
+  const drawer({Key? key, this.screen = ""}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -20,27 +26,29 @@ class drawer extends StatelessWidget {
             bottom: 10,
           ),
         ),
-        Center(
-            child: MaterialButton(
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Home()));
-          },
-          child: Row(
-            children: [
-              const Icon(Icons.home),
-              const Padding(padding: EdgeInsets.all(5)),
-              Text(
-                tr('Home'),
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              )
-            ],
-          ),
-          padding: const EdgeInsets.all(30),
-          elevation: 20,
-          splashColor: Colors.deepPurple,
-        )),
+        screen != 'options'
+            ? Center(
+                child: MaterialButton(
+                onPressed: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => Home()));
+                },
+                child: Row(
+                  children: [
+                    const Icon(Icons.home),
+                    const Padding(padding: EdgeInsets.all(5)),
+                    Text(
+                      tr('Home'),
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+                padding: const EdgeInsets.all(30),
+                elevation: 20,
+                splashColor: Colors.deepPurple,
+              ))
+            : const Center(),
         Center(
             child: MaterialButton(
           onPressed: () async {
@@ -48,10 +56,11 @@ class drawer extends StatelessWidget {
             await images.getDataBase();
             await images.openDataBase();
             await images.dataGet();
-            Navigator.pushNamed(context, "cardImages", arguments: {
-              'images': images.ImagesPaths,
-              'dates': images.dates
-            });
+            Navigator.pushNamed(
+              context,
+              "cardImages",
+              arguments: {'images': images.ImagesPaths, 'dates': images.dates},
+            );
           },
           child: Row(
             children: [
@@ -128,7 +137,7 @@ class drawer extends StatelessWidget {
                 ),
                 onPressed: () async {
                   await context.setLocale(
-                    Locale('en'),
+                    const Locale('en'),
                   );
                   Navigator.pop(context);
                 },
@@ -139,7 +148,7 @@ class drawer extends StatelessWidget {
                 ),
                 onPressed: () async {
                   await context.setLocale(
-                    Locale('ar'),
+                    const Locale('ar'),
                   );
                   Navigator.pop(context);
                 },

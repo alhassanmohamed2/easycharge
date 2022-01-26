@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names
+
 import 'dart:async';
 import 'package:easycharge/services/database.dart';
 import 'package:flutter/services.dart';
@@ -24,7 +26,7 @@ class Ai_cam {
     platformVersion = platformVersion;
   }
 
-  Future<Null> ExtractNumber() async {
+  Future ExtractNumber() async {
     FlutterMobileVision.start().then((previewSizes) => (() {
           previewOcr = previewSizes[cameraOcr]!.first;
         }));

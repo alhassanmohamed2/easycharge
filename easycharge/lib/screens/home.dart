@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:easycharge/screens/AppBar.dart';
 import 'package:easycharge/screens/card_images.dart';
 import 'package:easycharge/screens/drawer.dart';
@@ -25,7 +27,7 @@ class _HomeState extends State<Home> {
         debugShowCheckedModeBanner: false,
         home: Scaffold(
             backgroundColor: Colors.grey[300],
-            endDrawer: drawer(),
+            endDrawer: const drawer(),
             appBar: Appbar(),
             body: Container(
               decoration: const BoxDecoration(
@@ -45,14 +47,7 @@ class _HomeState extends State<Home> {
                             ElevatedButton(
                                 onPressed: () {
                                   Navigator.pushNamed(context, "options",
-                                      arguments: {
-                                        'info': card_options["Vodafone"],
-                                        'local': [
-                                          context.locale,
-                                          context.supportedLocales,
-                                          context.localizationDelegates
-                                        ]
-                                      });
+                                      arguments: card_options["Vodafone"]);
                                 },
                                 child: Image.asset(
                                     "assets/home_screen/vodafone.png"),
@@ -64,14 +59,7 @@ class _HomeState extends State<Home> {
                             ElevatedButton(
                                 onPressed: () {
                                   Navigator.pushNamed(context, "options",
-                                      arguments: {
-                                        'info': card_options["Orange"],
-                                        'local': [
-                                          context.locale,
-                                          context.supportedLocales,
-                                          context.localizationDelegates
-                                        ]
-                                      });
+                                      arguments: card_options["Orange"]);
                                 },
                                 child: Image.asset(
                                     "assets/home_screen/orange.png"),
@@ -83,14 +71,7 @@ class _HomeState extends State<Home> {
                             ElevatedButton(
                                 onPressed: () {
                                   Navigator.pushNamed(context, "options",
-                                      arguments: {
-                                        'info': card_options["We"],
-                                        'local': [
-                                          context.locale,
-                                          context.supportedLocales,
-                                          context.localizationDelegates
-                                        ]
-                                      });
+                                      arguments: card_options["We"]);
                                 },
                                 child: Image.asset("assets/home_screen/we.png"),
                                 style: ElevatedButton.styleFrom(
@@ -100,15 +81,11 @@ class _HomeState extends State<Home> {
                                             BorderRadius.circular(50)))),
                             ElevatedButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(context, "options",
-                                      arguments: {
-                                        'info': card_options["Etisalat"],
-                                        'local': [
-                                          context.locale,
-                                          context.supportedLocales,
-                                          context.localizationDelegates
-                                        ]
-                                      });
+                                  Navigator.pushNamed(
+                                    context,
+                                    "options",
+                                    arguments: card_options["Etisalat"],
+                                  );
                                 },
                                 child: Image.asset(
                                     "assets/home_screen/etisalat.png"),

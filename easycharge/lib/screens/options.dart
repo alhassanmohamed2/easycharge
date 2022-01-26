@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, use_key_in_widget_constructors, unused_local_variable
 
 import 'package:easycharge/screens/card_images.dart';
 import 'package:easycharge/screens/drawer.dart';
@@ -7,7 +7,6 @@ import 'package:flutter_mobile_vision_2/flutter_mobile_vision_2.dart';
 import 'package:easycharge/services/Ai_camera.dart';
 import 'package:easycharge/services/card_charge.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 class Options extends StatefulWidget {
   @override
@@ -30,15 +29,12 @@ class _OptionsState extends State<Options> {
   @override
   Widget build(BuildContext context) {
     final Map comp_info = ModalRoute.of(context)?.settings.arguments as Map;
-    String? value = comp_info['info']["Item"][0];
-    var comp_list = comp_info['info']["Item"];
+    String? value = comp_info["Item"][0];
+    var comp_list = comp_info["Item"];
 
     FocusNode myFocusNode = FocusNode();
 
     return MaterialApp(
-        locale: comp_info['local'][0],
-        supportedLocales: comp_info['local'][1],
-        localizationsDelegates: comp_info['local'][2],
         routes: {
           'options': (context) => Options(),
           'cardImages': (context) => CardImages()
@@ -46,18 +42,20 @@ class _OptionsState extends State<Options> {
         debugShowCheckedModeBanner: false,
         home: Scaffold(
             appBar: AppBar(
-              title: Text(comp_info['info']["title"]),
+              title: Text(comp_info["title"]),
               centerTitle: true,
-              backgroundColor: comp_info['info']['color']['titlecol'],
+              backgroundColor: comp_info['color']['titlecol'],
             ),
-            endDrawer: drawer(),
+            endDrawer: const drawer(
+              screen: "options",
+            ),
             backgroundColor: Colors.grey[200],
             body: Container(
                 padding: const EdgeInsets.only(top: 70, right: 10, left: 20),
                 decoration: BoxDecoration(
                     image: DecorationImage(
                   image: AssetImage(
-                    comp_info['info']["image"],
+                    comp_info["image"],
                   ),
                   fit: BoxFit.fill,
                 )),
@@ -77,8 +75,8 @@ class _OptionsState extends State<Options> {
                               controller: card_num_field,
                               maxLength: 16,
                               keyboardType: TextInputType.phone,
-                              style: TextStyle(
-                                  color: comp_info['info']["color"]['input']),
+                              style:
+                                  TextStyle(color: comp_info["color"]['input']),
                               decoration: InputDecoration(
                                   labelText:
                                       "اكتب كود الشحن او قم باستخراجه بالكاميرا",
@@ -86,21 +84,19 @@ class _OptionsState extends State<Options> {
                                     fontSize: 13,
                                     color: myFocusNode.hasFocus
                                         ? Colors.white
-                                        : comp_info['info']["color"]['label'],
+                                        : comp_info["color"]['label'],
                                   ),
                                   filled: false,
                                   enabled: true,
                                   focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(40),
                                       borderSide: BorderSide(
-                                          color: comp_info['info']["color"]
-                                              ['border'],
+                                          color: comp_info["color"]['border'],
                                           width: 3)),
                                   enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(40),
                                       borderSide: BorderSide(
-                                          color: comp_info['info']['color']
-                                              ['border'],
+                                          color: comp_info['color']['border'],
                                           width: 2))),
                             ),
                           )),
@@ -111,7 +107,7 @@ class _OptionsState extends State<Options> {
                               await ai_cam.textFieldText(card_num_field);
                             },
                             child: const Icon(Icons.camera_alt_rounded),
-                            color: comp_info['info']['color']['titlecol'],
+                            color: comp_info['color']['titlecol'],
                             minWidth: 50,
                             height: 50,
                             padding: const EdgeInsets.only(bottom: 10, top: 10),
@@ -125,7 +121,7 @@ class _OptionsState extends State<Options> {
                           "بعد كتابه كود الشحن اختر طريقه الشحن من هنا",
                           style: TextStyle(
                               fontSize: 15,
-                              color: comp_info['info']["color"]['hint'],
+                              color: comp_info["color"]['hint'],
                               fontWeight: FontWeight.bold),
                         ),
                         icon: const Icon(Icons.arrow_downward),
@@ -145,7 +141,7 @@ class _OptionsState extends State<Options> {
                               ChargeCard(
                                   ai_cam.cardnumber,
                                   card_num_field.text,
-                                  comp_info['info']['Codes']
+                                  comp_info['Codes']
                                       [comp_list.indexOf(newValue)],
                                   dirPath,
                                   context);

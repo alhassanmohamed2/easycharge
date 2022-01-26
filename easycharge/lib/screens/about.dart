@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors
+
 import 'package:easycharge/screens/AppBar.dart';
 import 'package:easycharge/screens/card_images.dart';
 import 'package:easycharge/screens/drawer.dart';
@@ -30,12 +32,10 @@ class About extends StatelessWidget {
                             color: Colors.purple.shade100),
                         child: Column(
                           children: [
-                            Container(
-                              child: CircleAvatar(
-                                radius: 30,
-                                backgroundImage: AssetImage(
-                                    team_members['personal_iamge'][index]),
-                              ),
+                            CircleAvatar(
+                              radius: 30,
+                              backgroundImage: AssetImage(
+                                  team_members['personal_iamge'][index]),
                             ),
                             Container(
                                 padding: const EdgeInsets.all(6),

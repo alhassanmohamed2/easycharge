@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_typing_uninitialized_variables, non_constant_identifier_names
 
 import 'dart:io';
 import 'package:sqflite/sqflite.dart';
@@ -74,7 +74,7 @@ class ImageDatabase {
             ListView.builder(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
-              physics: ScrollPhysics(),
+              physics: const ScrollPhysics(),
               itemCount: date_images.length,
               itemBuilder: (context, index) {
                 return Container(

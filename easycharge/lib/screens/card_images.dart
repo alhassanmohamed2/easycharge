@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors, non_constant_identifier_names, prefer_const_constructors
+
 import 'package:easycharge/screens/AppBar.dart';
 import 'package:easycharge/screens/drawer.dart';
 import 'package:flutter/material.dart';
