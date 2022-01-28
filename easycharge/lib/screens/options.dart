@@ -29,7 +29,7 @@ class _OptionsState extends State<Options> {
   @override
   Widget build(BuildContext context) {
     final Map comp_info = ModalRoute.of(context)?.settings.arguments as Map;
-    String? value = comp_info["Item"][0];
+    String? value = "";
     var comp_list = comp_info["Item"];
 
     FocusNode myFocusNode = FocusNode();
@@ -132,20 +132,17 @@ class _OptionsState extends State<Options> {
                           color: Colors.white,
                         ),
                         onChanged: (String? newValue) {
-                          setState(() {
-                            setState(() async {
-                              var extDir =
-                                  await getApplicationDocumentsDirectory();
-                              var dirPath = extDir.path;
-                              value = newValue!;
-                              ChargeCard(
-                                  ai_cam.cardnumber,
-                                  card_num_field.text,
-                                  comp_info['Codes']
-                                      [comp_list.indexOf(newValue)],
-                                  dirPath,
-                                  context);
-                            });
+                          setState(() async {
+                            var extDir =
+                                await getApplicationDocumentsDirectory();
+                            var dirPath = extDir.path;
+                            value = newValue!;
+                            ChargeCard(
+                                ai_cam.cardnumber,
+                                card_num_field.text,
+                                comp_info['Codes'][comp_list.indexOf(newValue)],
+                                dirPath,
+                                context);
                           });
                         },
                         items: comp_list

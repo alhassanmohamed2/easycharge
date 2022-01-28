@@ -10,7 +10,6 @@ class Ai_cam {
   String platformVersion = 'Unknown';
   int? cameraOcr = FlutterMobileVision.CAMERA_BACK;
   Size? previewOcr;
-  List<OcrText> textsOcr = [];
   var cardnumber = "";
   var images = ImageDatabase();
 
@@ -27,9 +26,6 @@ class Ai_cam {
   }
 
   Future ExtractNumber() async {
-    FlutterMobileVision.start().then((previewSizes) => (() {
-          previewOcr = previewSizes[cameraOcr]!.first;
-        }));
     List<OcrText> texts = [];
     Size _scanpreviewOcr = previewOcr ?? FlutterMobileVision.PREVIEW;
     var width = (_scanpreviewOcr.width * 0.50).toInt();
@@ -55,7 +51,6 @@ class Ai_cam {
       texts.add(OcrText('Failed to recognize text.'));
     }
 
-    textsOcr = texts;
     for (OcrText text in texts) {
       cardnumber = text.value.replaceAll(RegExp(r"\D"), "");
     }
