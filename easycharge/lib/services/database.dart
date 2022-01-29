@@ -34,7 +34,11 @@ class ImageDatabase {
   Future countImages() async {
     var ImagesCount = await database
         .rawQuery('SELECT id FROM images order by id DESC LIMIT 1');
-    no_paths = ImagesCount[0]['id'];
+    if (ImagesCount.length != 0) {
+      no_paths = ImagesCount[0]['id'];
+    } else {
+      no_paths = 0;
+    }
   }
 
   Future dataSpe(var condition) async {
@@ -49,6 +53,12 @@ class ImageDatabase {
 
     await database.transaction((txn) async {
       txn.rawInsert('INSERT INTO images(path, date) VALUES("$path", "$date")');
+    });
+  }
+
+  Future delete_images() async {
+    await database.transaction((txn) async {
+      txn.rawInsert('DELETE FROM images');
     });
   }
 
@@ -95,6 +105,7 @@ class ImageDatabase {
                 ),
               ])));
     }
+
     Images_date_con = images_con;
   }
 }

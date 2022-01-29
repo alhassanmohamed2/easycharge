@@ -3,7 +3,6 @@
 import 'package:easycharge/screens/Help.dart';
 import 'package:easycharge/screens/about.dart';
 import 'package:easycharge/screens/home.dart';
-import 'package:easycharge/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -29,10 +28,10 @@ class drawer extends StatelessWidget {
         screen != 'options'
             ? Center(
                 child: MaterialButton(
-                onPressed: () async {
+                onPressed: () {
                   if (screen != 'home') {
                     Navigator.of(context).pop();
-                    await Navigator.push(context,
+                    Navigator.push(context,
                         MaterialPageRoute(builder: (context) => Home()));
                   } else {
                     Navigator.pop(context);
