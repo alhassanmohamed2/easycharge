@@ -27,7 +27,9 @@ class _HomeState extends State<Home> {
         debugShowCheckedModeBanner: false,
         home: Scaffold(
             backgroundColor: Colors.grey[300],
-            endDrawer: const drawer(),
+            endDrawer: const drawer(
+              screen: "home",
+            ),
             appBar: Appbar(),
             body: Container(
               decoration: const BoxDecoration(

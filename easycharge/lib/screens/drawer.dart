@@ -29,9 +29,14 @@ class drawer extends StatelessWidget {
         screen != 'options'
             ? Center(
                 child: MaterialButton(
-                onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => Home()));
+                onPressed: () async {
+                  if (screen != 'home') {
+                    Navigator.of(context).pop();
+                    await Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Home()));
+                  } else {
+                    Navigator.pop(context);
+                  }
                 },
                 child: Row(
                   children: [
@@ -51,16 +56,9 @@ class drawer extends StatelessWidget {
             : const Center(),
         Center(
             child: MaterialButton(
-          onPressed: () async {
-            ImageDatabase images = ImageDatabase();
-            await images.getDataBase();
-            await images.openDataBase();
-            await images.dataGet();
-            Navigator.pushNamed(
-              context,
-              "cardImages",
-              arguments: {'images': images.ImagesPaths, 'dates': images.dates},
-            );
+          onPressed: () {
+            Navigator.of(context).pop();
+            Navigator.pushNamed(context, "cardImages");
           },
           child: Row(
             children: [
@@ -80,6 +78,7 @@ class drawer extends StatelessWidget {
         Center(
             child: MaterialButton(
           onPressed: () {
+            Navigator.of(context).pop();
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => Help()),
@@ -103,6 +102,7 @@ class drawer extends StatelessWidget {
         Center(
             child: MaterialButton(
           onPressed: () {
+            Navigator.of(context).pop();
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => About()),

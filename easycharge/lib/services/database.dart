@@ -52,7 +52,7 @@ class ImageDatabase {
     });
   }
 
-  Future images_func(var dates, var images) async {
+  Future images_func() async {
     List<Widget> images_con = [
       Container(
           margin: const EdgeInsets.all(20.0),
@@ -66,8 +66,9 @@ class ImageDatabase {
     var date_images;
     await imagesDates.getDataBase();
     await imagesDates.openDataBase();
-    for (int i = 0; i < dates.length; i++) {
-      await imagesDates.dataSpe(dates[i]['date']);
+    await imagesDates.dataGet();
+    for (int i = 0; i < (imagesDates.dates).length; i++) {
+      await imagesDates.dataSpe(imagesDates.dates[i]['date']);
       date_images = imagesDates.date_images;
       images_con.add(Container(
           decoration: BoxDecoration(
@@ -75,22 +76,24 @@ class ImageDatabase {
               borderRadius: BorderRadius.circular(10)),
           padding: const EdgeInsets.all(25),
           margin: const EdgeInsets.all(5),
-          child: ExpansionTile(title: Text("${dates[i]['date']}"), children: [
-            ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              physics: const ScrollPhysics(),
-              itemCount: date_images.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  child: Image.file(
-                    File(date_images[index]["path"]),
-                  ),
-                  margin: const EdgeInsets.all(8.0),
-                );
-              },
-            ),
-          ])));
+          child: ExpansionTile(
+              title: Text("${imagesDates.dates[i]['date']}"),
+              children: [
+                ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  physics: const ScrollPhysics(),
+                  itemCount: date_images.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      child: Image.file(
+                        File(date_images[index]["path"]),
+                      ),
+                      margin: const EdgeInsets.all(8.0),
+                    );
+                  },
+                ),
+              ])));
     }
     Images_date_con = images_con;
   }

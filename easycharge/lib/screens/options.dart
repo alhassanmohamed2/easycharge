@@ -35,6 +35,11 @@ class _OptionsState extends State<Options> {
 
     return Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.of(context).pop();
+              }),
           title: Text(comp_info["title"]),
           centerTitle: true,
           backgroundColor: comp_info['color']['titlecol'],

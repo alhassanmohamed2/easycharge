@@ -21,8 +21,6 @@ class _CardImagesState extends State<CardImages> {
   ];
   @override
   Widget build(BuildContext context) {
-    final Map Images = ModalRoute.of(context)?.settings.arguments as Map;
-
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: Appbar(),
@@ -37,7 +35,7 @@ class _CardImagesState extends State<CardImages> {
           child: const Icon(Icons.show_chart),
           onPressed: () async {
             ImageDatabase images_con = ImageDatabase();
-            await images_con.images_func(Images['dates'], Images['images']);
+            await images_con.images_func();
             setState(() {
               if ((images_con.Images_date_con).length == 1) {
                 Images_date = [
