@@ -25,39 +25,42 @@ class drawer extends StatelessWidget {
             bottom: 10,
           ),
         ),
-        screen != 'options'
-            ? Center(
-                child: MaterialButton(
-                onPressed: () {
-                  if (screen != 'home') {
-                    Navigator.of(context).pop();
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Home()));
-                  } else {
-                    Navigator.pop(context);
-                  }
-                },
-                child: Row(
-                  children: [
-                    const Icon(Icons.home),
-                    const Padding(padding: EdgeInsets.all(5)),
-                    Text(
-                      tr('Home'),
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold),
-                    )
-                  ],
-                ),
-                padding: const EdgeInsets.all(30),
-                elevation: 20,
-                splashColor: Colors.deepPurple,
-              ))
-            : const Center(),
         Center(
             child: MaterialButton(
           onPressed: () {
-            Navigator.of(context).pop();
-            Navigator.pushNamed(context, "cardImages");
+            if (screen != 'home') {
+              Navigator.of(context).pop();
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => Home()));
+            } else {
+              Navigator.of(context).pop();
+            }
+          },
+          child: Row(
+            children: [
+              const Icon(Icons.home),
+              const Padding(padding: EdgeInsets.all(5)),
+              Text(
+                tr('Home'),
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              )
+            ],
+          ),
+          padding: const EdgeInsets.all(30),
+          elevation: 20,
+          splashColor: Colors.deepPurple,
+        )),
+        Center(
+            child: MaterialButton(
+          onPressed: () {
+            if (screen != 'home') {
+              Navigator.of(context).pop();
+              Navigator.pushReplacementNamed(context, "cardImages");
+            } else {
+              Navigator.of(context).pop();
+              Navigator.pushNamed(context, "cardImages");
+            }
           },
           child: Row(
             children: [
@@ -77,11 +80,19 @@ class drawer extends StatelessWidget {
         Center(
             child: MaterialButton(
           onPressed: () {
-            Navigator.of(context).pop();
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Help()),
-            );
+            if (screen != 'home') {
+              Navigator.of(context).pop();
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => Help()),
+              );
+            } else {
+              Navigator.of(context).pop();
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Help()),
+              );
+            }
           },
           child: Row(
             children: [
@@ -101,11 +112,19 @@ class drawer extends StatelessWidget {
         Center(
             child: MaterialButton(
           onPressed: () {
-            Navigator.of(context).pop();
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => About()),
-            );
+            if (screen != 'home') {
+              Navigator.of(context).pop();
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => About()),
+              );
+            } else {
+              Navigator.of(context).pop();
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => About()),
+              );
+            }
           },
           child: Row(
             children: [

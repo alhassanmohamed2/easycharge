@@ -44,9 +44,6 @@ class _OptionsState extends State<Options> {
           centerTitle: true,
           backgroundColor: comp_info['color']['titlecol'],
         ),
-        endDrawer: const drawer(
-          screen: "options",
-        ),
         backgroundColor: Colors.grey[200],
         body: Container(
             padding: const EdgeInsets.only(top: 70, right: 10, left: 20),
