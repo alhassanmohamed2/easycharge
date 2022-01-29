@@ -12,7 +12,7 @@ ChargeCard(String cameraExNo, String card_number, String code, var dirPath,
       ImageDatabase images = ImageDatabase();
       await images.getDataBase();
       await images.openDataBase();
-      await images.dataGet();
+      await images.countImages();
       await images.dataUpdate('$dirPath/${images.no_paths + 1}.jpg');
     }
   } else {

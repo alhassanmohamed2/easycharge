@@ -29,12 +29,17 @@ class ImageDatabase {
   Future dataGet() async {
     ImagesPaths = await database.rawQuery('SELECT path , date FROM images');
     dates = await database.rawQuery('SELECT  date FROM images group by date');
-    no_paths = ImagesPaths.length;
+  }
+
+  Future countImages() async {
+    var ImagesCount = await database
+        .rawQuery('SELECT id FROM images order by id DESC LIMIT 1');
+    no_paths = ImagesCount[0]['id'];
   }
 
   Future dataSpe(var condition) async {
     date_images = await database
-        .rawQuery("SELECT  path FROM images where date like '$condition'");
+        .rawQuery("SELECT  path FROM images where date = '$condition'");
   }
 
   Future dataUpdate(String path) async {

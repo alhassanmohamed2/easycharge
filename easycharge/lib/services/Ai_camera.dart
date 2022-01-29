@@ -31,7 +31,7 @@ class Ai_cam {
     var width = (_scanpreviewOcr.width * 0.50).toInt();
     await images.getDataBase();
     await images.openDataBase();
-    await images.dataGet();
+    await images.countImages();
     var no = images.no_paths;
     var extDir = await getApplicationDocumentsDirectory();
     var dirPath = extDir.path;
