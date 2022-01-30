@@ -18,7 +18,8 @@ Map card_options = {
       'input': Colors.white,
       'hint': Colors.white,
       'border': Colors.red,
-      'label': Colors.white
+      'label': Colors.white,
+      'counter': Colors.white
     },
   },
   "Etisalat": {
@@ -36,7 +37,8 @@ Map card_options = {
       'input': Colors.greenAccent,
       'hint': Colors.greenAccent,
       'border': Colors.greenAccent,
-      'label': Colors.green
+      'label': Colors.green,
+      'counter': Colors.green[200]
     },
   },
   "Orange": {
@@ -50,7 +52,8 @@ Map card_options = {
       'input': Colors.white,
       'hint': Colors.orange,
       'border': Colors.orange,
-      'label': Colors.yellow
+      'label': Colors.yellow,
+      'counter': Colors.yellow
     },
   },
   "We": {
@@ -64,7 +67,8 @@ Map card_options = {
       'input': Colors.purpleAccent,
       'hint': Colors.white,
       'border': Colors.purple,
-      'label': Colors.white
+      'label': Colors.white,
+      'counter': Colors.white
     },
   }
 };

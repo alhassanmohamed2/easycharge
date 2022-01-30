@@ -77,6 +77,9 @@ class _OptionsState extends State<Options> {
                                 ? Colors.white
                                 : comp_info["color"]['label'],
                           ),
+                          counterStyle: TextStyle(
+                              color: comp_info["color"]['counter'],
+                              fontSize: 15),
                           filled: false,
                           enabled: true,
                           focusedBorder: OutlineInputBorder(
