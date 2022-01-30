@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 
 ChargeCard(String cameraExNo, String card_number, String code, var dirPath,
-    var context) async {
-  if (card_number.length == 16) {
+    var cardNumberLen, var context) async {
+  if (card_number.length == cardNumberLen) {
     FlutterPhoneDirectCaller.callNumber('*' + code + '*' + card_number + '#');
     if (cameraExNo.length == 16) {
       ImageDatabase images = ImageDatabase();

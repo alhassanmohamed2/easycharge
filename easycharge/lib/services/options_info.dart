@@ -9,6 +9,7 @@ Map card_options = {
       "لشحن الكارت دقائق لكل الشبكات ",
       "لشحن فلكسات"
     ],
+    "cardNumberLen": 16,
     "Codes": ['858', '858*1', '858*2'],
     "image": "assets/options_background/vodafone.jpg",
     "title": "خدمات فودافون",
@@ -28,6 +29,7 @@ Map card_options = {
       "لشحن كارت دقائق لكل الشبكات",
       "لشحن ميكسات"
     ],
+    "cardNumberLen": 15,
     "Codes": ['556', '556*2', '556*1'],
     "image": "assets/options_background/Eitsaat.jpg",
     "title": "خدمات اتصالات",
@@ -43,6 +45,7 @@ Map card_options = {
   },
   "Orange": {
     "Item": ["لشحن كارت عادي /فكه", "لشحن كارت اكستر"],
+    "cardNumberLen": 14,
     "Codes": ['102', '102'],
     "image": "assets/options_background/orange.jpg",
     "title": "خدمات أورانج",
@@ -58,6 +61,7 @@ Map card_options = {
   },
   "We": {
     "Item": ["لشحن كارت عادي/فكه", "لشحن وحدات ", "لشحن ميجابايت انترنت"],
+    "cardNumberLen": 16,
     "Codes": ['555', '566', '599'],
     "image": "assets/options_background/We.jpg",
     "title": "خدمات وى",

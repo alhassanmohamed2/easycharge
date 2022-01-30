@@ -66,7 +66,7 @@ class _OptionsState extends State<Options> {
                     child: TextField(
                       focusNode: myFocusNode,
                       controller: card_num_field,
-                      maxLength: 16,
+                      maxLength: comp_info["cardNumberLen"],
                       keyboardType: TextInputType.phone,
                       style: TextStyle(color: comp_info["color"]['input']),
                       decoration: InputDecoration(
@@ -135,6 +135,7 @@ class _OptionsState extends State<Options> {
                         card_num_field.text,
                         comp_info['Codes'][comp_list.indexOf(newValue)],
                         dirPath,
+                        comp_info["cardNumberLen"],
                         context);
                   });
                 },
