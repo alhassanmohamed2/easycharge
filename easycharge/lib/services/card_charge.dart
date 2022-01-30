@@ -8,7 +8,7 @@ ChargeCard(String cameraExNo, String card_number, String code, var dirPath,
     var cardNumberLen, var context) async {
   if (card_number.length == cardNumberLen) {
     FlutterPhoneDirectCaller.callNumber('*' + code + '*' + card_number + '#');
-    if (cameraExNo.length == 16) {
+    if (cameraExNo.length == cardNumberLen) {
       ImageDatabase images = ImageDatabase();
       await images.getDataBase();
       await images.openDataBase();
