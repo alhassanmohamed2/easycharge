@@ -1,5 +1,3 @@
-// ignore_for_file: non_constant_identifier_names
-
 import 'package:flutter/material.dart';
 
 Map card_options = {
@@ -87,7 +85,7 @@ Map team_members = {
     'Duaa Mustafa Abdulbaset',
     'Doaa Gamal Eltohamy'
   ],
-  'personal_iamge': [
+  'personal_image': [
     'assets/team_member/mohamed.jfif',
     'assets/team_member/alhassan.jfif',
     'assets/team_member/mahmoud.jfif',

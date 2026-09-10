@@ -1,179 +1,104 @@
-// ignore_for_file: camel_case_types
-
 import 'package:easycharge/screens/Help.dart';
 import 'package:easycharge/screens/about.dart';
-import 'package:easycharge/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-class drawer extends StatelessWidget {
+class AppDrawer extends StatelessWidget {
   final String screen;
 
-  const drawer({Key? key, this.screen = ""}) : super(key: key);
+  const AppDrawer({Key? key, this.screen = ""}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
-        child: Column(
-      children: [
-        Container(
-          decoration: const BoxDecoration(
+      child: Column(
+        children: [
+          Container(
+            height: 200,
+            width: double.infinity,
+            decoration: const BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage('assets/drawer.jpg'), fit: BoxFit.cover)),
-          padding: const EdgeInsets.all(110),
-          margin: const EdgeInsets.only(
-            bottom: 10,
+                image: AssetImage('assets/drawer.jpg'),
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
-        ),
-        Center(
-            child: MaterialButton(
-          onPressed: () {
-            if (screen != 'home') {
-              Navigator.of(context).pop();
-              Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (context) => Home()));
-            } else {
-              Navigator.of(context).pop();
-            }
-          },
-          child: Row(
-            children: [
-              const Icon(Icons.home),
-              const Padding(padding: EdgeInsets.all(5)),
-              Text(
-                tr('Home'),
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              )
-            ],
+          const SizedBox(height: 10),
+          _buildDrawerItem(
+            context,
+            icon: Icons.home,
+            title: tr('Home'),
+            onTap: () {
+              Navigator.pop(context); // Close drawer
+              if (screen != 'home') {
+                Navigator.pushReplacementNamed(context, '/');
+              }
+            },
           ),
-          padding: const EdgeInsets.all(30),
-          elevation: 20,
-          splashColor: Colors.deepPurple,
-        )),
-        Center(
-            child: MaterialButton(
-          onPressed: () {
-            if (screen != 'home') {
-              Navigator.of(context).pop();
-              Navigator.pushReplacementNamed(context, "cardImages");
-            } else {
-              Navigator.of(context).pop();
-              Navigator.pushNamed(context, "cardImages");
-            }
-          },
-          child: Row(
-            children: [
-              const Icon(Icons.card_giftcard),
-              const Padding(padding: EdgeInsets.all(5)),
-              Text(
-                tr('Cards'),
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              )
-            ],
+          _buildDrawerItem(
+            context,
+            icon: Icons.card_giftcard,
+            title: tr('Cards'),
+            onTap: () {
+              Navigator.pop(context);
+              if (screen != 'cardImages') {
+                Navigator.pushNamed(context, "cardImages");
+              }
+            },
           ),
-          padding: const EdgeInsets.all(30),
-          elevation: 20,
-          splashColor: Colors.deepPurple,
-        )),
-        Center(
-            child: MaterialButton(
-          onPressed: () {
-            if (screen != 'home') {
-              Navigator.of(context).pop();
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => Help()),
-              );
-            } else {
-              Navigator.of(context).pop();
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Help()),
-              );
-            }
-          },
-          child: Row(
-            children: [
-              const Icon(Icons.help),
-              const Padding(padding: EdgeInsets.all(5)),
-              Text(
-                tr('Help'),
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              )
-            ],
+          _buildDrawerItem(
+            context,
+            icon: Icons.help,
+            title: tr('Help'),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const Help()));
+            },
           ),
-          padding: const EdgeInsets.all(30),
-          elevation: 20,
-          splashColor: Colors.deepPurple,
-        )),
-        Center(
-            child: MaterialButton(
-          onPressed: () {
-            if (screen != 'home') {
-              Navigator.of(context).pop();
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => About()),
-              );
-            } else {
-              Navigator.of(context).pop();
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => About()),
-              );
-            }
-          },
-          child: Row(
-            children: [
-              const Icon(Icons.help_center),
-              const Padding(padding: EdgeInsets.all(5)),
-              Text(
-                tr('About'),
-                style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.normal),
-              )
-            ],
+          _buildDrawerItem(
+            context,
+            icon: Icons.help_center,
+            title: tr('About'),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const About()));
+            },
           ),
-          padding: const EdgeInsets.all(30),
-          elevation: 20,
-          splashColor: Colors.deepPurple,
-        )),
-        const SizedBox(
-          height: 15,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.deepPurple,
+          const Spacer(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.deepPurple),
+                  onPressed: () async {
+                    await context.setLocale(const Locale('en'));
+                    Navigator.pop(context);
+                  },
+                  child: const Text("English", style: TextStyle(color: Colors.white)),
                 ),
-                onPressed: () async {
-                  await context.setLocale(
-                    const Locale('en'),
-                  );
-                  Navigator.pop(context);
-                },
-                child: const Text("English")),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.deepPurple,
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.deepPurple),
+                  onPressed: () async {
+                    await context.setLocale(const Locale('ar'));
+                    Navigator.pop(context);
+                  },
+                  child: const Text("العربية", style: TextStyle(color: Colors.white)),
                 ),
-                onPressed: () async {
-                  await context.setLocale(
-                    const Locale('ar'),
-                  );
-                  Navigator.pop(context);
-                },
-                child: const Text("العربية"))
-          ],
-        )
-      ],
-    ));
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDrawerItem(BuildContext context, {required IconData icon, required String title, required VoidCallback onTap}) {
+    return ListTile(
+      leading: Icon(icon, size: 28, color: Colors.deepPurple),
+      title: Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+      onTap: onTap,
+    );
   }
 }

@@ -1,13 +1,20 @@
-// ignore_for_file: non_constant_identifier_names
-
 import 'package:easycharge/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 
-ChargeCard(String cameraExNo, String card_number, String code, var dirPath,
-    var cardNumberLen, var context) async {
-  if (card_number.length == cardNumberLen) {
-    FlutterPhoneDirectCaller.callNumber('*' + code + '*' + card_number + '#');
+Future<void> chargeCard(
+    String cameraExNo, 
+    String cardNumber, 
+    String code, 
+    String dirPath,
+    int cardNumberLen, 
+    BuildContext context) async {
+      
+  // Input validation - ensure only digits
+  if (cardNumber.length == cardNumberLen && RegExp(r'^[0-9]+$').hasMatch(cardNumber)) {
+    String ussdCode = '*$code*$cardNumber#';
+    await FlutterPhoneDirectCaller.callNumber(ussdCode);
+    
     if (cameraExNo.length == cardNumberLen) {
       ImageDatabase images = ImageDatabase();
       await images.getDataBase();
@@ -16,17 +23,18 @@ ChargeCard(String cameraExNo, String card_number, String code, var dirPath,
       await images.dataUpdate('$dirPath/${images.no_paths + 1}.jpg');
     }
   } else {
-    return showAlertDialog(context);
+    _showAlertDialog(context);
   }
 }
 
-showAlertDialog(BuildContext context) {
-  return showDialog(
+void _showAlertDialog(BuildContext context) {
+  showDialog(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: const Text("Error"),
-        content: const Text("The card number is wrong"),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: const Text("Error", style: TextStyle(color: Colors.red)),
+        content: const Text("The card number is wrong or contains invalid characters."),
         actions: [
           TextButton(
             child: const Text("OK"),

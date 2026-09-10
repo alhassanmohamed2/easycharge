@@ -1,102 +1,65 @@
-// ignore_for_file: use_key_in_widget_constructors
-
 import 'package:easycharge/screens/AppBar.dart';
-import 'package:easycharge/screens/card_images.dart';
 import 'package:easycharge/screens/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:easycharge/services/options_info.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:easycharge/screens/options.dart';
 
-class Home extends StatefulWidget {
-  @override
-  State<Home> createState() => _HomeState();
-}
+class Home extends StatelessWidget {
+  const Home({Key? key}) : super(key: key);
 
-class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        locale: context.locale,
-        supportedLocales: context.supportedLocales,
-        localizationsDelegates: context.localizationDelegates,
-        routes: {
-          'options': (context) => Options(),
-          'cardImages': (context) => CardImages()
-        },
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-            backgroundColor: Colors.grey[300],
-            endDrawer: const drawer(
-              screen: "home",
+    return Scaffold(
+      backgroundColor: Colors.grey[300],
+      endDrawer: const AppDrawer(screen: "home"),
+      appBar: const Appbar(),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/home_screen/home.jpeg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16.0, 100.0, 16.0, 0),
+            child: GridView.count(
+              crossAxisCount: 2,
+              mainAxisSpacing: 20,
+              crossAxisSpacing: 20,
+              children: [
+                _buildCarrierCard(context, "Vodafone", "assets/home_screen/vodafone.png"),
+                _buildCarrierCard(context, "Orange", "assets/home_screen/orange.png"),
+                _buildCarrierCard(context, "We", "assets/home_screen/we.png"),
+                _buildCarrierCard(context, "Etisalat", "assets/home_screen/etisalat.png"),
+              ],
             ),
-            appBar: Appbar(),
-            body: Container(
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('assets/home_screen/home.jpeg'),
-                      fit: BoxFit.cover)),
-              child: SafeArea(
-                  child: Padding(
-                      padding: const EdgeInsets.fromLTRB(7.0, 120.0, 7.0, 0),
-                      child: GridView(
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  mainAxisSpacing: 20,
-                                  crossAxisSpacing: 20),
-                          children: [
-                            ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, "options",
-                                      arguments: card_options["Vodafone"]);
-                                },
-                                child: Image.asset(
-                                    "assets/home_screen/vodafone.png"),
-                                style: ElevatedButton.styleFrom(
-                                    primary: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(50)))),
-                            ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, "options",
-                                      arguments: card_options["Orange"]);
-                                },
-                                child: Image.asset(
-                                    "assets/home_screen/orange.png"),
-                                style: ElevatedButton.styleFrom(
-                                    primary: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(50)))),
-                            ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, "options",
-                                      arguments: card_options["We"]);
-                                },
-                                child: Image.asset("assets/home_screen/we.png"),
-                                style: ElevatedButton.styleFrom(
-                                    primary: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(50)))),
-                            ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    "options",
-                                    arguments: card_options["Etisalat"],
-                                  );
-                                },
-                                child: Image.asset(
-                                    "assets/home_screen/etisalat.png"),
-                                style: ElevatedButton.styleFrom(
-                                    primary: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(50)))),
-                          ]))),
-            )));
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCarrierCard(BuildContext context, String carrierName, String assetPath) {
+    return Card(
+      elevation: 6,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(24),
+        onTap: () {
+          Navigator.pushNamed(
+            context, 
+            "options",
+            arguments: card_options[carrierName],
+          );
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Image.asset(
+            assetPath,
+            fit: BoxFit.contain,
+          ),
+        ),
+      ),
+    );
   }
 }

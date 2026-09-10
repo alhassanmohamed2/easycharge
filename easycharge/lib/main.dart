@@ -9,17 +9,38 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
 
-  runApp(MaterialApp(
-    home: EasyLocalization(
-        path: 'assets/translations',
-        supportedLocales: const [Locale('en'), Locale('ar')],
-        fallbackLocale: const Locale('ar'),
-        assetLoader: const CodegenLoader(),
-        child: Home()),
-    routes: {
-      'options': (context) => Options(),
-      'cardImages': (context) => CardImages()
-    },
-    debugShowCheckedModeBanner: false,
-  ));
+  runApp(
+    EasyLocalization(
+      path: 'assets/translations',
+      supportedLocales: const [Locale('en'), Locale('ar')],
+      fallbackLocale: const Locale('ar'),
+      assetLoader: const CodegenLoader(),
+      child: const MyApp(),
+    ),
+  );
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'EasyCharge',
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple,
+        scaffoldBackgroundColor: Colors.grey[200],
+        useMaterial3: true,
+      ),
+      home: const Home(),
+      routes: {
+        'options': (context) => const Options(),
+        'cardImages': (context) => const CardImages(),
+      },
+      debugShowCheckedModeBanner: false,
+    );
+  }
 }
