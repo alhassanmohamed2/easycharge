@@ -16,10 +16,10 @@ class Home extends StatelessWidget {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration(
+        decoration: const BoxDecoration(color: Color(0xFF4365A2),
           image: DecorationImage(
             image: AssetImage('assets/home_screen/home.jpeg'),
-            fit: BoxFit.cover,
+            fit: BoxFit.fitHeight,
             alignment: Alignment.bottomCenter, // Keeps blocks anchored to the bottom
           ),
         ),
