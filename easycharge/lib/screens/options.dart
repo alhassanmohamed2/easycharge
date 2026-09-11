@@ -4,6 +4,8 @@ import 'package:easycharge/services/Ai_camera.dart';
 import 'package:easycharge/services/card_charge.dart';
 import 'package:easycharge/models/carrier_option.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'dart:ui';
 
 class Options extends StatefulWidget {
   const Options({Key? key}) : super(key: key);
@@ -37,8 +39,9 @@ class _OptionsState extends State<Options> {
   void _showWebWarning(String feature) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('$feature is not supported in the web browser. Please use an Android/iOS device.'),
-        backgroundColor: Colors.red,
+        content: Text('$feature is not supported in the web browser. Please use an Android device.'),
+        backgroundColor: Colors.red.shade700,
+        behavior: SnackBarBehavior.floating,
       )
     );
   }
@@ -69,7 +72,11 @@ class _OptionsState extends State<Options> {
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: ${e.toString()}'))
+        SnackBar(
+          content: Text('Error: ${e.toString()}'),
+          backgroundColor: Colors.red.shade700,
+          behavior: SnackBarBehavior.floating,
+        )
       );
     }
   }
@@ -79,158 +86,222 @@ class _OptionsState extends State<Options> {
     final CarrierOption option = ModalRoute.of(context)?.settings.arguments as CarrierOption;
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.of(context).pop();
-          }
+        leading: Container(
+          margin: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.2),
+            shape: BoxShape.circle,
+          ),
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
         ),
-        title: Text(option.title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-        centerTitle: true,
-        backgroundColor: option.primaryColor,
-        elevation: 0,
-      ),
-      backgroundColor: Colors.grey[100],
-      body: Container(
-        padding: const EdgeInsets.only(top: 40, right: 16, left: 16),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(option.imagePath),
-            fit: BoxFit.cover,
-            colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.4), BlendMode.darken),
+        title: Text(
+          option.title, 
+          style: const TextStyle(
+            color: Colors.white, 
+            fontWeight: FontWeight.w900,
+            fontSize: 24,
+            letterSpacing: 1.2,
           )
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center, 
-          children: [
-            Container(
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Colors.black54,
-                borderRadius: BorderRadius.circular(24),
-                border: Border.all(color: option.primaryColor.withOpacity(0.5), width: 2)
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          focusNode: _myFocusNode,
-                          controller: _cardNumField,
-                          maxLength: option.cardNumberLen,
-                          keyboardType: TextInputType.phone,
-                          style: TextStyle(color: option.inputColor, fontSize: 20, letterSpacing: 2, fontWeight: FontWeight.bold),
-                          decoration: InputDecoration(
-                            labelText: "Card Code",
-                            hintText: "Enter code or scan",
-                            hintStyle: TextStyle(color: Colors.white54),
-                            labelStyle: TextStyle(
-                              fontSize: 16,
-                              color: _myFocusNode.hasFocus ? Colors.white : option.labelColor,
-                            ),
-                            counterStyle: TextStyle(
-                              color: option.hintColor,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold
-                            ),
-                            filled: true,
-                            fillColor: Colors.black45,
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: BorderSide(color: option.primaryColor, width: 2)
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              borderSide: BorderSide(color: Colors.white30, width: 1)
-                            )
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      _isProcessingCamera 
-                        ? const Padding(
-                            padding: EdgeInsets.all(16.0),
-                            child: CircularProgressIndicator(color: Colors.white),
-                          )
-                        : Container(
-                            margin: const EdgeInsets.only(bottom: 20),
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: option.primaryColor,
-                                padding: const EdgeInsets.all(16),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                                elevation: 8,
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      backgroundColor: Colors.black,
+      body: Hero(
+        tag: 'carrier_${option.title}',
+        child: Material(
+          type: MaterialType.transparency,
+          child: Container(
+            padding: const EdgeInsets.only(top: 80, right: 20, left: 20),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(option.imagePath),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.5), 
+                  BlendMode.darken
+                ),
+              )
+            ),
+            child: Center(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(32),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+                  child: Container(
+                    padding: const EdgeInsets.all(28),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(32),
+                      border: Border.all(color: Colors.white.withOpacity(0.2), width: 1.5),
+                      boxShadow: [
+                        BoxShadow(
+                          color: option.primaryColor.withOpacity(0.3),
+                          blurRadius: 40,
+                          spreadRadius: -10,
+                        )
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: TextField(
+                                focusNode: _myFocusNode,
+                                controller: _cardNumField,
+                                maxLength: option.cardNumberLen,
+                                keyboardType: TextInputType.phone,
+                                style: const TextStyle(
+                                  color: Colors.white, 
+                                  fontSize: 22, 
+                                  letterSpacing: 4, 
+                                  fontWeight: FontWeight.bold
+                                ),
+                                decoration: InputDecoration(
+                                  labelText: tr('Card Code'),
+                                  hintText: tr('Enter code or scan'),
+                                  hintStyle: TextStyle(color: Colors.white.withOpacity(0.5), letterSpacing: 0),
+                                  labelStyle: TextStyle(
+                                    fontSize: 16,
+                                    letterSpacing: 0,
+                                    color: _myFocusNode.hasFocus ? Colors.white : Colors.white.withOpacity(0.7),
+                                  ),
+                                  counterStyle: TextStyle(
+                                    color: Colors.white.withOpacity(0.7),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.black.withOpacity(0.3),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide: BorderSide(color: option.primaryColor, width: 2)
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide: BorderSide(color: Colors.white.withOpacity(0.3), width: 1)
+                                  )
+                                ),
                               ),
-                              onPressed: () async {
-                                if (kIsWeb) {
-                                  _showWebWarning('Camera OCR');
-                                  return;
-                                }
-                                setState(() { _isProcessingCamera = true; });
-                                try {
-                                  await _aiCam.extractNumber();
-                                  if (_aiCam.cardnumber.isNotEmpty) {
-                                    _cardNumField.text = _aiCam.cardnumber;
-                                  }
-                                } catch (e) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text('Camera error: ${e.toString()}'))
-                                  );
-                                } finally {
-                                  setState(() { _isProcessingCamera = false; });
+                            ),
+                            const SizedBox(width: 16),
+                            _isProcessingCamera 
+                              ? Container(
+                                  height: 60,
+                                  width: 60,
+                                  padding: const EdgeInsets.all(16.0),
+                                  decoration: BoxDecoration(
+                                    color: option.primaryColor,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: const CircularProgressIndicator(color: Colors.white, strokeWidth: 3),
+                                )
+                              : Container(
+                                  margin: const EdgeInsets.only(bottom: 24),
+                                  height: 60,
+                                  width: 60,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: option.primaryColor,
+                                      padding: EdgeInsets.zero,
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                                      elevation: 8,
+                                      shadowColor: option.primaryColor.withOpacity(0.5),
+                                    ),
+                                    onPressed: () async {
+                                      if (kIsWeb) {
+                                        _showWebWarning('Camera OCR');
+                                        return;
+                                      }
+                                      setState(() { _isProcessingCamera = true; });
+                                      try {
+                                        await _aiCam.extractNumber();
+                                        if (_aiCam.cardnumber.isNotEmpty) {
+                                          _cardNumField.text = _aiCam.cardnumber;
+                                        }
+                                      } catch (e) {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text('Camera error: ${e.toString()}'),
+                                            behavior: SnackBarBehavior.floating,
+                                          )
+                                        );
+                                      } finally {
+                                        setState(() { _isProcessingCamera = false; });
+                                      }
+                                    },
+                                    child: const Icon(Icons.document_scanner_rounded, color: Colors.white, size: 28),
+                                  ),
+                                )
+                          ],
+                        ),
+                        const SizedBox(height: 24),
+                        Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.2), 
+                                blurRadius: 15, 
+                                offset: const Offset(0, 8)
+                              )
+                            ]
+                          ),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton<String>(
+                              value: _selectedValue,
+                              isExpanded: true,
+                              hint: Text(
+                                tr("Select charging option"),
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: option.primaryColor,
+                                  fontWeight: FontWeight.bold
+                                ),
+                              ),
+                              icon: Container(
+                                padding: const EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: option.primaryColor.withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(12)
+                                ),
+                                child: Icon(Icons.flash_on_rounded, color: option.primaryColor, size: 20),
+                              ),
+                              style: const TextStyle(color: Colors.black87, fontSize: 16, fontWeight: FontWeight.w700),
+                              onChanged: (String? newValue) {
+                                if (newValue != null) {
+                                  _handleCharge(newValue, option);
                                 }
                               },
-                              child: const Icon(Icons.camera_alt_rounded, color: Colors.white, size: 32),
+                              items: option.items.map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(tr(value)),
+                                );
+                              }).toList(),
                             ),
-                          )
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(color: Colors.black26, blurRadius: 8, offset: const Offset(0, 4))
-                      ]
-                    ),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        value: _selectedValue,
-                        isExpanded: true,
-                        hint: Text(
-                          "Select charging option",
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: option.primaryColor,
-                            fontWeight: FontWeight.bold
                           ),
-                        ),
-                        icon: Icon(Icons.flash_on, color: option.primaryColor),
-                        style: const TextStyle(color: Colors.black87, fontSize: 16, fontWeight: FontWeight.w600),
-                        onChanged: (String? newValue) {
-                          if (newValue != null) {
-                            _handleCharge(newValue, option);
-                          }
-                        },
-                        items: option.items.map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
+                        )
+                      ],
                     ),
-                  )
-                ],
+                  ),
+                ),
               ),
             ),
-          ]
-        )
+          )
+        ),
       )
     );
   }

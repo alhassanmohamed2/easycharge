@@ -2,6 +2,7 @@ import 'package:easycharge/screens/AppBar.dart';
 import 'package:easycharge/screens/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:easycharge/services/options_info.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -9,37 +10,67 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      extendBodyBehindAppBar: true,
       endDrawer: const AppDrawer(screen: "home"),
       appBar: const Appbar(),
       body: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/home_screen/home.jpeg'),
+            image: const AssetImage('assets/home_screen/home.jpeg'),
             fit: BoxFit.cover,
-            colorFilter: ColorFilter.mode(Colors.black45, BlendMode.darken),
+            colorFilter: ColorFilter.mode(
+              Colors.black.withOpacity(0.6), 
+              BlendMode.darken,
+            ),
           ),
         ),
         child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 0),
-            child: Column(
-              children: [
-                const Text(
-                  "Choose Your Carrier",
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    shadows: [Shadow(color: Colors.black54, blurRadius: 8)],
-                  ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(24.0, 40.0, 24.0, 30.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      tr('Welcome Back!'),
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white.withOpacity(0.8),
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 1.2,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      tr('Choose Your\nCarrier'),
+                      style: const TextStyle(
+                        fontSize: 34,
+                        height: 1.2,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 30),
-                Expanded(
+              ),
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(40),
+                      topRight: Radius.circular(40),
+                    ),
+                  ),
                   child: GridView.count(
+                    padding: const EdgeInsets.only(top: 40, bottom: 20),
                     crossAxisCount: 2,
-                    mainAxisSpacing: 24,
-                    crossAxisSpacing: 24,
+                    mainAxisSpacing: 20,
+                    crossAxisSpacing: 20,
+                    childAspectRatio: 0.9,
                     children: [
                       _buildCarrierCard(context, "Vodafone", "assets/home_screen/vodafone.png"),
                       _buildCarrierCard(context, "Orange", "assets/home_screen/orange.png"),
@@ -48,8 +79,8 @@ class Home extends StatelessWidget {
                     ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -58,33 +89,58 @@ class Home extends StatelessWidget {
 
   Widget _buildCarrierCard(BuildContext context, String carrierId, String assetPath) {
     final option = cardOptions[carrierId];
-    return Card(
-      elevation: 8,
-      shadowColor: option?.primaryColor.withOpacity(0.5) ?? Colors.black,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(24),
-        onTap: () {
-          Navigator.pushNamed(
-            context, 
-            "options",
-            arguments: option,
-          );
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(24),
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [Colors.white, Colors.grey.shade50],
+    return Hero(
+      tag: 'carrier_$carrierId',
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () {
+            Navigator.pushNamed(
+              context, 
+              "options",
+              arguments: option,
+            );
+          },
+          borderRadius: BorderRadius.circular(28),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(28),
+              boxShadow: [
+                BoxShadow(
+                  color: (option?.primaryColor ?? Colors.black).withOpacity(0.15),
+                  blurRadius: 20,
+                  offset: const Offset(0, 10),
+                )
+              ],
+              border: Border.all(color: Colors.grey.withOpacity(0.1), width: 1),
             ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Image.asset(
-              assetPath,
-              fit: BoxFit.contain,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: (option?.primaryColor ?? Colors.grey).withOpacity(0.05),
+                  ),
+                  child: Image.asset(
+                    assetPath,
+                    height: 60,
+                    width: 60,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  carrierId,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black87,
+                  ),
+                ),
+              ],
             ),
           ),
         ),

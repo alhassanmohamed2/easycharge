@@ -17,7 +17,7 @@ class _CardImagesState extends State<CardImages> {
   final ImageDatabase _db = ImageDatabase();
   bool _isLoading = true;
   String? _errorMessage;
-  List<Widget> _imageWidgets = [];
+  List<Map<String, dynamic>> _groupedCards = [];
 
   @override
   void initState() {
@@ -34,7 +34,7 @@ class _CardImagesState extends State<CardImages> {
     if (kIsWeb) {
       setState(() {
         _isLoading = false;
-        _errorMessage = "The database features are not supported on the Web browser. Please run this app on an Android or iOS device/emulator.";
+        _errorMessage = tr("Database features are not supported on the Web browser.");
       });
       return;
     }
@@ -44,87 +44,19 @@ class _CardImagesState extends State<CardImages> {
       await _db.openDataBase();
       await _db.dataGet();
 
-      List<Widget> widgets = [
-        Container(
-          margin: const EdgeInsets.all(20.0),
-          child: const Text(
-            "Charged Cards",
-            style: TextStyle(fontSize: 25.0, color: Colors.grey, fontWeight: FontWeight.bold),
-          )
-        )
-      ];
+      List<Map<String, dynamic>> loadedData = [];
 
-      if (_db.dates.isEmpty) {
-        widgets.add(
-          Container(
-            margin: const EdgeInsets.all(20.0),
-            child: const Text(
-              "No Cards Found",
-              style: TextStyle(fontSize: 20.0, color: Colors.grey),
-            )
-          )
-        );
-        widgets.add(
-          Container(
-            padding: const EdgeInsets.all(10),
-            margin: const EdgeInsets.fromLTRB(5, 40, 5, 10),
-            child: Image.asset('assets/error.gif'),
-          )
-        );
-      } else {
-        widgets.add(
-          Align(
-            alignment: Alignment.centerRight,
-            child: IconButton(
-              icon: const Icon(Icons.delete, color: Colors.red, size: 30),
-              onPressed: _showDeleteConfirmation,
-            ),
-          )
-        );
-
-        for (int i = 0; i < _db.dates.length; i++) {
-          String date = _db.dates[i]['date'];
-          await _db.dataSpe(date);
-          var dateImages = List.from(_db.date_images);
-
-          widgets.add(
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(color: Colors.grey.shade300),
-                borderRadius: BorderRadius.circular(16)
-              ),
-              margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
-              child: ExpansionTile(
-                title: Text(date, style: const TextStyle(fontWeight: FontWeight.bold)),
-                children: [
-                  ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: dateImages.length,
-                    itemBuilder: (context, index) {
-                      File imgFile = File(dateImages[index]["path"]);
-                      if (!imgFile.existsSync()) return const SizedBox();
-                      
-                      return Container(
-                        margin: const EdgeInsets.all(8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Image.file(imgFile),
-                        ),
-                      );
-                    },
-                  ),
-                ]
-              )
-            )
-          );
-        }
+      for (int i = 0; i < _db.dates.length; i++) {
+        String date = _db.dates[i]['date'];
+        await _db.dataSpe(date);
+        loadedData.add({
+          "date": date,
+          "images": List.from(_db.date_images)
+        });
       }
 
       setState(() {
-        _imageWidgets = widgets;
+        _groupedCards = loadedData;
         _isLoading = false;
       });
     } catch (e) {
@@ -140,27 +72,30 @@ class _CardImagesState extends State<CardImages> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          title: const Text("Delete All Images"),
-          content: const Text("Are you sure you want to delete all card images?"),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+          title: Text(tr("Clear History"), style: const TextStyle(fontWeight: FontWeight.bold)),
+          content: Text(tr("Are you sure you want to delete all scanned card images?")),
           actions: [
             TextButton(
-              child: const Text("Yes", style: TextStyle(color: Colors.red)),
+              child: Text(tr("Cancel"), style: TextStyle(color: Colors.grey.shade600)),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red.shade400,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              ),
+              child: Text(tr("Delete All")),
               onPressed: () async {
                 Navigator.of(context).pop();
                 setState(() => _isLoading = true);
                 try {
                   await _db.delete_images();
                 } catch (e) {
-                  // handle deletion error
+                  // handle
                 }
                 await _loadImages();
-              },
-            ),
-            TextButton(
-              child: const Text("No"),
-              onPressed: () {
-                Navigator.of(context).pop();
               },
             )
           ],
@@ -174,34 +109,114 @@ class _CardImagesState extends State<CardImages> {
     return Scaffold(
       appBar: const Appbar(),
       endDrawer: const AppDrawer(screen: 'cardImages'),
+      floatingActionButton: _groupedCards.isNotEmpty
+          ? FloatingActionButton.extended(
+              onPressed: _showDeleteConfirmation,
+              backgroundColor: Colors.red.shade50,
+              icon: Icon(Icons.delete_sweep_rounded, color: Colors.red.shade400),
+              label: Text(tr("Clear All"), style: TextStyle(color: Colors.red.shade400, fontWeight: FontWeight.bold)),
+            )
+          : null,
       body: _isLoading 
         ? const Center(child: CircularProgressIndicator())
         : _errorMessage != null
             ? Center(
                 child: Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(32.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(Icons.error_outline, color: Colors.red, size: 60),
-                      const SizedBox(height: 16),
+                      Container(
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: Colors.red.shade50,
+                          shape: BoxShape.circle
+                        ),
+                        child: Icon(Icons.error_outline_rounded, color: Colors.red.shade400, size: 60),
+                      ),
+                      const SizedBox(height: 24),
                       Text(
                         _errorMessage!, 
                         textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 16, color: Colors.black87)
+                        style: TextStyle(fontSize: 16, color: Colors.grey.shade800, height: 1.5)
                       ),
                     ],
                   ),
                 ),
               )
-            : Padding(
-                padding: const EdgeInsets.all(12),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: _imageWidgets,
+            : _groupedCards.isEmpty 
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.credit_card_off_rounded, size: 80, color: Colors.grey.shade300),
+                        const SizedBox(height: 16),
+                        Text(
+                          tr("No Cards Scanned"),
+                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.grey.shade400),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          tr("Scanned recharge cards will appear here"),
+                          style: TextStyle(color: Colors.grey.shade500),
+                        )
+                      ],
+                    ),
+                  )
+                : ListView.builder(
+                    padding: const EdgeInsets.only(top: 16, bottom: 100, left: 16, right: 16),
+                    itemCount: _groupedCards.length,
+                    itemBuilder: (context, index) {
+                      final group = _groupedCards[index];
+                      return Card(
+                        margin: const EdgeInsets.only(bottom: 16),
+                        elevation: 2,
+                        shadowColor: Colors.black.withOpacity(0.05),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                        child: Theme(
+                          data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+                          child: ExpansionTile(
+                            initiallyExpanded: index == 0,
+                            iconColor: Theme.of(context).colorScheme.primary,
+                            title: Text(
+                              group['date'], 
+                              style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16)
+                            ),
+                            children: [
+                              ListView.builder(
+                                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: group['images'].length,
+                                itemBuilder: (context, imgIndex) {
+                                  File imgFile = File(group['images'][imgIndex]["path"]);
+                                  if (!imgFile.existsSync()) return const SizedBox();
+                                  
+                                  return Container(
+                                    margin: const EdgeInsets.only(bottom: 16),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(16),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.08),
+                                          blurRadius: 10,
+                                          offset: const Offset(0, 4)
+                                        )
+                                      ]
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(16),
+                                      child: Image.file(imgFile, fit: BoxFit.cover),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ]
+                          ),
+                        )
+                      );
+                    },
                   ),
-                ),
-              ),
     );
   }
 }
