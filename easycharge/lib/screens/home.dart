@@ -19,7 +19,7 @@ class Home extends StatelessWidget {
             image: const AssetImage('assets/home_screen/home.jpeg'),
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
-              Colors.black.withOpacity(0.6), 
+              Colors.black.withOpacity(0.65), 
               BlendMode.darken,
             ),
           ),
@@ -29,7 +29,7 @@ class Home extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(24.0, 40.0, 24.0, 30.0),
+                padding: const EdgeInsets.fromLTRB(24.0, 30.0, 24.0, 30.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -37,19 +37,20 @@ class Home extends StatelessWidget {
                       tr('Welcome Back!'),
                       style: TextStyle(
                         fontSize: 16,
-                        color: Colors.white.withOpacity(0.8),
-                        fontWeight: FontWeight.w500,
-                        letterSpacing: 1.2,
+                        color: Colors.white.withOpacity(0.9),
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 1.5,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 10),
                     Text(
                       tr('Choose Your\nCarrier'),
                       style: const TextStyle(
-                        fontSize: 34,
+                        fontSize: 36,
                         height: 1.2,
                         fontWeight: FontWeight.w900,
                         color: Colors.white,
+                        letterSpacing: 0.5,
                       ),
                     ),
                   ],
@@ -57,20 +58,20 @@ class Home extends StatelessWidget {
               ),
               Expanded(
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
                   decoration: const BoxDecoration(
-                    color: Colors.white,
+                    color: Color(0xFFF8F9FA),
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(40),
                       topRight: Radius.circular(40),
                     ),
                   ),
                   child: GridView.count(
-                    padding: const EdgeInsets.only(top: 40, bottom: 20),
+                    padding: const EdgeInsets.only(top: 35, bottom: 20),
                     crossAxisCount: 2,
-                    mainAxisSpacing: 20,
-                    crossAxisSpacing: 20,
-                    childAspectRatio: 0.9,
+                    mainAxisSpacing: 24,
+                    crossAxisSpacing: 24,
+                    childAspectRatio: 0.95,
                     children: [
                       _buildCarrierCard(context, "Vodafone", "assets/home_screen/vodafone.png"),
                       _buildCarrierCard(context, "Orange", "assets/home_screen/orange.png"),
@@ -89,6 +90,8 @@ class Home extends StatelessWidget {
 
   Widget _buildCarrierCard(BuildContext context, String carrierId, String assetPath) {
     final option = cardOptions[carrierId];
+    final color = option?.primaryColor ?? Colors.black;
+    
     return Hero(
       tag: 'carrier_$carrierId',
       child: Material(
@@ -101,43 +104,58 @@ class Home extends StatelessWidget {
               arguments: option,
             );
           },
-          borderRadius: BorderRadius.circular(28),
+          borderRadius: BorderRadius.circular(30),
+          splashColor: color.withOpacity(0.2),
+          highlightColor: color.withOpacity(0.1),
           child: Container(
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(28),
+              borderRadius: BorderRadius.circular(30),
               boxShadow: [
                 BoxShadow(
-                  color: (option?.primaryColor ?? Colors.black).withOpacity(0.15),
-                  blurRadius: 20,
+                  color: color.withOpacity(0.12),
+                  blurRadius: 25,
+                  spreadRadius: 2,
                   offset: const Offset(0, 10),
                 )
               ],
-              border: Border.all(color: Colors.grey.withOpacity(0.1), width: 1),
+              border: Border.all(color: color.withOpacity(0.1), width: 1.5),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: (option?.primaryColor ?? Colors.grey).withOpacity(0.05),
-                  ),
-                  child: Image.asset(
-                    assetPath,
-                    height: 60,
-                    width: 60,
-                    fit: BoxFit.contain,
+                Expanded(
+                  flex: 3,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Image.asset(
+                      assetPath,
+                      fit: BoxFit.contain,
+                      width: double.infinity,
+                    ),
                   ),
                 ),
-                const SizedBox(height: 16),
-                Text(
-                  carrierId,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.black87,
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: color.withOpacity(0.05),
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(30),
+                        bottomRight: Radius.circular(30),
+                      ),
+                    ),
+                    alignment: Alignment.center,
+                    child: Text(
+                      tr(carrierId),
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800,
+                        color: color.withOpacity(0.9),
+                        letterSpacing: 0.5,
+                      ),
+                    ),
                   ),
                 ),
               ],
