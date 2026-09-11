@@ -1,5 +1,4 @@
 import 'package:easycharge/screens/card_images.dart';
-import 'package:easycharge/translations/codegen_loader.g.dart';
 import 'package:flutter/material.dart';
 import 'package:easycharge/screens/home.dart';
 import 'package:easycharge/screens/options.dart';
@@ -21,7 +20,6 @@ Future<void> main() async {
       path: 'assets/translations',
       supportedLocales: const [Locale('en'), Locale('ar')],
       fallbackLocale: const Locale('ar'),
-      assetLoader: const CodegenLoader(),
       child: const MyApp(),
     ),
   );
