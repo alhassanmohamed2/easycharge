@@ -10,6 +10,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[300],
       extendBodyBehindAppBar: true,
       endDrawer: const AppDrawer(screen: "home"),
       appBar: const Appbar(),
@@ -21,130 +22,62 @@ class Home extends StatelessWidget {
           ),
         ),
         child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(24.0, 30.0, 24.0, 10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr('Welcome Back!'),
-                      style: const TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1.5,
-                        shadows: [Shadow(color: Colors.black87, blurRadius: 10)],
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      tr('Choose Your\nCarrier'),
-                      style: const TextStyle(
-                        fontSize: 34,
-                        height: 1.2,
-                        fontWeight: FontWeight.w900,
-                        color: Colors.white,
-                        letterSpacing: 0.5,
-                        shadows: [Shadow(color: Colors.black87, blurRadius: 10)],
-                      ),
-                    ),
-                  ],
-                ),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(7.0, 120.0, 7.0, 0),
+            child: GridView(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 20,
+                crossAxisSpacing: 20,
               ),
-              Expanded(
-                child: GridView.count(
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 24,
-                  crossAxisSpacing: 24,
-                  childAspectRatio: 0.95,
-                  children: [
-                    _buildCarrierCard(context, "Vodafone", "assets/home_screen/vodafone.png"),
-                    _buildCarrierCard(context, "Orange", "assets/home_screen/orange.png"),
-                    _buildCarrierCard(context, "We", "assets/home_screen/we.png"),
-                    _buildCarrierCard(context, "Etisalat", "assets/home_screen/etisalat.png"),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCarrierCard(BuildContext context, String carrierId, String assetPath) {
-    final option = cardOptions[carrierId];
-    final color = option?.primaryColor ?? Colors.black;
-    
-    return Hero(
-      tag: 'carrier_$carrierId',
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: () {
-            Navigator.pushNamed(
-              context, 
-              "options",
-              arguments: option,
-            );
-          },
-          borderRadius: BorderRadius.circular(30),
-          splashColor: color.withOpacity(0.2),
-          highlightColor: color.withOpacity(0.1),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.95),
-              borderRadius: BorderRadius.circular(30),
-              boxShadow: [
-                BoxShadow(
-                  color: color.withOpacity(0.3),
-                  blurRadius: 15,
-                  spreadRadius: 2,
-                  offset: const Offset(0, 8),
-                )
-              ],
-              border: Border.all(color: color.withOpacity(0.4), width: 1.5),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(
-                  flex: 3,
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Image.asset(
-                      assetPath,
-                      fit: BoxFit.contain,
-                      width: double.infinity,
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, "options", arguments: cardOptions["Vodafone"]);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
                     ),
                   ),
+                  child: Image.asset("assets/home_screen/vodafone.png"),
                 ),
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: color.withOpacity(0.1),
-                      borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(30),
-                        bottomRight: Radius.circular(30),
-                      ),
-                    ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      tr(carrierId),
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w800,
-                        color: color.withOpacity(0.9),
-                        letterSpacing: 0.5,
-                      ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, "options", arguments: cardOptions["Orange"]);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
                     ),
                   ),
+                  child: Image.asset("assets/home_screen/orange.png"),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, "options", arguments: cardOptions["We"]);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                  ),
+                  child: Image.asset("assets/home_screen/we.png"),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, "options", arguments: cardOptions["Etisalat"]);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                  ),
+                  child: Image.asset("assets/home_screen/etisalat.png"),
                 ),
               ],
             ),
