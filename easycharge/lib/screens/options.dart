@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:easycharge/services/Ai_camera.dart';
 import 'package:easycharge/services/card_charge.dart';
 import 'package:path_provider/path_provider.dart';
@@ -32,22 +33,42 @@ class _OptionsState extends State<Options> {
     super.dispose();
   }
 
-  Future<void> _handleCharge(String newValue, Map compInfo, List compList) async {
-    final extDir = await getApplicationDocumentsDirectory();
-    final dirPath = extDir.path;
-    
-    setState(() {
-      _selectedValue = newValue;
-    });
-    
-    await chargeCard(
-      _aiCam.cardnumber,
-      _cardNumField.text,
-      compInfo['Codes'][compList.indexOf(newValue)],
-      dirPath,
-      compInfo["cardNumberLen"],
-      context
+  void _showWebWarning(String feature) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('$feature is not supported in the web browser. Please use an Android/iOS device.'),
+        backgroundColor: Colors.red,
+      )
     );
+  }
+
+  Future<void> _handleCharge(String newValue, Map compInfo, List compList) async {
+    if (kIsWeb) {
+      _showWebWarning('USSD calling');
+      return;
+    }
+
+    try {
+      final extDir = await getApplicationDocumentsDirectory();
+      final dirPath = extDir.path;
+      
+      setState(() {
+        _selectedValue = newValue;
+      });
+      
+      await chargeCard(
+        _aiCam.cardnumber,
+        _cardNumField.text,
+        compInfo['Codes'][compList.indexOf(newValue)],
+        dirPath,
+        compInfo["cardNumberLen"],
+        context
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: ${e.toString()}'))
+      );
+    }
   }
 
   @override
@@ -130,10 +151,18 @@ class _OptionsState extends State<Options> {
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                       ),
                       onPressed: () async {
+                        if (kIsWeb) {
+                          _showWebWarning('Camera OCR');
+                          return;
+                        }
                         setState(() { _isProcessingCamera = true; });
                         try {
                           await _aiCam.extractNumber();
                           _cardNumField.text = _aiCam.cardnumber;
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Camera error: ${e.toString()}'))
+                          );
                         } finally {
                           setState(() { _isProcessingCamera = false; });
                         }
