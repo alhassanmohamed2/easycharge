@@ -14,7 +14,7 @@ class About extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: ListView.builder(
-          itemCount: team_members['names'].length,
+          itemCount: team_members['names']!.length,
           itemBuilder: (context, index) {
             return Card(
               elevation: 3,
@@ -27,12 +27,12 @@ class About extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 30,
-                      backgroundImage: AssetImage(team_members['personal_image'][index]),
+                      backgroundImage: AssetImage(team_members['personal_image']![index]),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        team_members['names'][index],
+                        team_members['names']![index],
                         style: const TextStyle(
                           fontSize: 18.0, 
                           color: Colors.black87,
