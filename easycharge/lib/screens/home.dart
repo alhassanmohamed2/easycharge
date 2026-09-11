@@ -3,7 +3,6 @@ import 'package:easycharge/screens/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:easycharge/services/options_info.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'dart:ui';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -15,14 +14,10 @@ class Home extends StatelessWidget {
       endDrawer: const AppDrawer(screen: "home"),
       appBar: const Appbar(),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
-            image: const AssetImage('assets/home_screen/home.jpeg'),
+            image: AssetImage('assets/home_screen/home.jpeg'),
             fit: BoxFit.cover,
-            colorFilter: ColorFilter.mode(
-              Colors.black.withOpacity(0.5), 
-              BlendMode.darken,
-            ),
           ),
         ),
         child: SafeArea(
@@ -30,64 +25,48 @@ class Home extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(24.0, 30.0, 24.0, 30.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(24.0, 30.0, 24.0, 10.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       tr('Welcome Back!'),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
-                        color: Colors.white.withOpacity(0.9),
-                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
                         letterSpacing: 1.5,
+                        shadows: [Shadow(color: Colors.black87, blurRadius: 10)],
                       ),
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 8),
                     Text(
                       tr('Choose Your\nCarrier'),
                       style: const TextStyle(
-                        fontSize: 36,
+                        fontSize: 34,
                         height: 1.2,
                         fontWeight: FontWeight.w900,
                         color: Colors.white,
                         letterSpacing: 0.5,
+                        shadows: [Shadow(color: Colors.black87, blurRadius: 10)],
                       ),
                     ),
                   ],
                 ),
               ),
               Expanded(
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(40),
-                    topRight: Radius.circular(40),
-                  ),
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 24),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.15),
-                        border: Border(
-                          top: BorderSide(color: Colors.white.withOpacity(0.2), width: 1.5)
-                        )
-                      ),
-                      child: GridView.count(
-                        padding: const EdgeInsets.only(top: 35, bottom: 20),
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 24,
-                        crossAxisSpacing: 24,
-                        childAspectRatio: 0.95,
-                        children: [
-                          _buildCarrierCard(context, "Vodafone", "assets/home_screen/vodafone.png"),
-                          _buildCarrierCard(context, "Orange", "assets/home_screen/orange.png"),
-                          _buildCarrierCard(context, "We", "assets/home_screen/we.png"),
-                          _buildCarrierCard(context, "Etisalat", "assets/home_screen/etisalat.png"),
-                        ],
-                      ),
-                    ),
-                  ),
+                child: GridView.count(
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 24,
+                  crossAxisSpacing: 24,
+                  childAspectRatio: 0.95,
+                  children: [
+                    _buildCarrierCard(context, "Vodafone", "assets/home_screen/vodafone.png"),
+                    _buildCarrierCard(context, "Orange", "assets/home_screen/orange.png"),
+                    _buildCarrierCard(context, "We", "assets/home_screen/we.png"),
+                    _buildCarrierCard(context, "Etisalat", "assets/home_screen/etisalat.png"),
+                  ],
                 ),
               ),
             ],
@@ -118,17 +97,17 @@ class Home extends StatelessWidget {
           highlightColor: color.withOpacity(0.1),
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.9),
+              color: Colors.white.withOpacity(0.95),
               borderRadius: BorderRadius.circular(30),
               boxShadow: [
                 BoxShadow(
-                  color: color.withOpacity(0.2),
-                  blurRadius: 25,
+                  color: color.withOpacity(0.3),
+                  blurRadius: 15,
                   spreadRadius: 2,
-                  offset: const Offset(0, 10),
+                  offset: const Offset(0, 8),
                 )
               ],
-              border: Border.all(color: color.withOpacity(0.3), width: 1.5),
+              border: Border.all(color: color.withOpacity(0.4), width: 1.5),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
