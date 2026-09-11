@@ -47,7 +47,7 @@ class AppDrawer extends StatelessWidget {
                     ],
                   ),
                 ),
-                alignment: Alignment.bottomLeft,
+                alignment: AlignmentDirectional.bottomStart,
                 padding: const EdgeInsets.all(20),
                 child: const Text(
                   'EasyCharge',

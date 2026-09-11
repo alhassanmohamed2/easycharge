@@ -3,6 +3,7 @@ import 'package:easycharge/screens/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:easycharge/services/options_info.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'dart:ui';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ class Home extends StatelessWidget {
             image: const AssetImage('assets/home_screen/home.jpeg'),
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
-              Colors.black.withOpacity(0.65), 
+              Colors.black.withOpacity(0.5), 
               BlendMode.darken,
             ),
           ),
@@ -29,7 +30,7 @@ class Home extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(24.0, 30.0, 24.0, 30.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(24.0, 30.0, 24.0, 30.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -57,27 +58,35 @@ class Home extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFF8F9FA),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(40),
-                      topRight: Radius.circular(40),
-                    ),
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(40),
+                    topRight: Radius.circular(40),
                   ),
-                  child: GridView.count(
-                    padding: const EdgeInsets.only(top: 35, bottom: 20),
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 24,
-                    crossAxisSpacing: 24,
-                    childAspectRatio: 0.95,
-                    children: [
-                      _buildCarrierCard(context, "Vodafone", "assets/home_screen/vodafone.png"),
-                      _buildCarrierCard(context, "Orange", "assets/home_screen/orange.png"),
-                      _buildCarrierCard(context, "We", "assets/home_screen/we.png"),
-                      _buildCarrierCard(context, "Etisalat", "assets/home_screen/etisalat.png"),
-                    ],
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.15),
+                        border: Border(
+                          top: BorderSide(color: Colors.white.withOpacity(0.2), width: 1.5)
+                        )
+                      ),
+                      child: GridView.count(
+                        padding: const EdgeInsets.only(top: 35, bottom: 20),
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 24,
+                        crossAxisSpacing: 24,
+                        childAspectRatio: 0.95,
+                        children: [
+                          _buildCarrierCard(context, "Vodafone", "assets/home_screen/vodafone.png"),
+                          _buildCarrierCard(context, "Orange", "assets/home_screen/orange.png"),
+                          _buildCarrierCard(context, "We", "assets/home_screen/we.png"),
+                          _buildCarrierCard(context, "Etisalat", "assets/home_screen/etisalat.png"),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -109,17 +118,17 @@ class Home extends StatelessWidget {
           highlightColor: color.withOpacity(0.1),
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Colors.white.withOpacity(0.9),
               borderRadius: BorderRadius.circular(30),
               boxShadow: [
                 BoxShadow(
-                  color: color.withOpacity(0.12),
+                  color: color.withOpacity(0.2),
                   blurRadius: 25,
                   spreadRadius: 2,
                   offset: const Offset(0, 10),
                 )
               ],
-              border: Border.all(color: color.withOpacity(0.1), width: 1.5),
+              border: Border.all(color: color.withOpacity(0.3), width: 1.5),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -140,7 +149,7 @@ class Home extends StatelessWidget {
                   child: Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: color.withOpacity(0.05),
+                      color: color.withOpacity(0.1),
                       borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(30),
                         bottomRight: Radius.circular(30),
