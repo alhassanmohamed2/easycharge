@@ -9,9 +9,6 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Determine how many columns to show based on screen width (for tablets/landscape)
-    int columns = MediaQuery.of(context).size.width > 600 ? 4 : 2;
-
     return Scaffold(
       extendBodyBehindAppBar: true,
       endDrawer: const AppDrawer(screen: "home"),
@@ -23,55 +20,49 @@ class Home extends StatelessWidget {
           image: DecorationImage(
             image: AssetImage('assets/home_screen/home.jpeg'),
             fit: BoxFit.cover,
-            // CRITICAL FIX: Align to bottom so the CASH CARD blocks are NEVER cropped off!
-            alignment: Alignment.bottomCenter, 
+            alignment: Alignment.bottomCenter, // Keeps blocks anchored to the bottom
           ),
         ),
         child: SafeArea(
-          // Wrap in a scroll view so it doesn't push the blocks off the screen
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(24.0, 30.0, 24.0, 10.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        tr('Welcome Back!'),
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1.5,
-                          shadows: [Shadow(color: Colors.black87, blurRadius: 10)],
-                        ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(24.0, 30.0, 24.0, 20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      tr('Welcome Back!'),
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1.5,
+                        shadows: [Shadow(color: Colors.black87, blurRadius: 10)],
                       ),
-                      const SizedBox(height: 8),
-                      Text(
-                        tr('Choose Your\nCarrier'),
-                        style: const TextStyle(
-                          fontSize: 34,
-                          height: 1.2,
-                          fontWeight: FontWeight.w900,
-                          color: Colors.white,
-                          letterSpacing: 0.5,
-                          shadows: [Shadow(color: Colors.black87, blurRadius: 10)],
-                        ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      tr('Choose Your\nCarrier'),
+                      style: const TextStyle(
+                        fontSize: 34,
+                        height: 1.2,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.white,
+                        letterSpacing: 0.5,
+                        shadows: [Shadow(color: Colors.black87, blurRadius: 10)],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                // GridView is shrink-wrapped to take minimum vertical space
-                GridView.count(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-                  crossAxisCount: columns,
-                  mainAxisSpacing: 24,
-                  crossAxisSpacing: 24,
-                  childAspectRatio: columns == 4 ? 1.0 : 0.95,
+              ),
+              // Use Wrap with FIXED sizes instead of GridView so the cards don't explode in size!
+              Center(
+                child: Wrap(
+                  spacing: 16,
+                  runSpacing: 16,
+                  alignment: WrapAlignment.center,
                   children: [
                     _buildCarrierCard(context, "Vodafone", "assets/home_screen/vodafone.png"),
                     _buildCarrierCard(context, "Orange", "assets/home_screen/orange.png"),
@@ -79,10 +70,10 @@ class Home extends StatelessWidget {
                     _buildCarrierCard(context, "Etisalat", "assets/home_screen/etisalat.png"),
                   ],
                 ),
-                // Add a spacer block at the bottom so the scroll goes all the way down to reveal the blocks completely
-                const SizedBox(height: 250), 
-              ],
-            ),
+              ),
+              // Push everything to the top, leaving the bottom completely empty for the background image
+              const Spacer(),
+            ],
           ),
         ),
       ),
@@ -99,19 +90,17 @@ class Home extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: () {
-            Navigator.pushNamed(
-              context, 
-              "options",
-              arguments: option,
-            );
+            Navigator.pushNamed(context, "options", arguments: option);
           },
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(25),
           splashColor: color.withOpacity(0.2),
           highlightColor: color.withOpacity(0.1),
           child: Container(
+            width: 140, // Strict maximum width
+            height: 160, // Strict maximum height
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.95),
-              borderRadius: BorderRadius.circular(30),
+              borderRadius: BorderRadius.circular(25),
               boxShadow: [
                 BoxShadow(
                   color: color.withOpacity(0.3),
@@ -143,15 +132,15 @@ class Home extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: color.withOpacity(0.1),
                       borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(30),
-                        bottomRight: Radius.circular(30),
+                        bottomLeft: Radius.circular(25),
+                        bottomRight: Radius.circular(25),
                       ),
                     ),
                     alignment: Alignment.center,
                     child: Text(
                       tr(carrierId),
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 16,
                         fontWeight: FontWeight.w800,
                         color: color.withOpacity(0.9),
                         letterSpacing: 0.5,
