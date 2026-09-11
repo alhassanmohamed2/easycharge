@@ -149,7 +149,7 @@ class _CardImagesState extends State<CardImages> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset('assets/error.gif', width: 200, height: 200),
+                        Icon(Icons.credit_card_off_rounded, size: 80, color: Colors.grey.shade300),
                         const SizedBox(height: 16),
                         Text(
                           tr("No Cards Scanned"),
