@@ -1,81 +1,73 @@
 import 'package:flutter/material.dart';
+import 'package:easycharge/models/carrier_option.dart';
 
-Map card_options = {
-  "Vodafone": {
-    "Item": [
+final Map<String, CarrierOption> cardOptions = {
+  "Vodafone": CarrierOption(
+    id: "Vodafone",
+    title: "خدمات فودافون",
+    items: [
       "لشحن كارت عادي/فكه",
       "لشحن الكارت دقائق لكل الشبكات ",
       "لشحن فلكسات"
     ],
-    "cardNumberLen": 16,
-    "Codes": ['858', '858*1', '858*2'],
-    "image": "assets/options_background/vodafone.jpg",
-    "title": "خدمات فودافون",
-    'color': {
-      'titlecol': Colors.red,
-      'cam': Colors.red,
-      'input': Colors.white,
-      'hint': Colors.white,
-      'border': Colors.red,
-      'label': Colors.white,
-      'counter': Colors.white
-    },
-  },
-  "Etisalat": {
-    "Item": [
+    cardNumberLen: 16,
+    codes: ['858', '858*1', '858*2'],
+    imagePath: "assets/options_background/vodafone.jpg",
+    primaryColor: Colors.red,
+    inputColor: Colors.white,
+    labelColor: Colors.white,
+    hintColor: Colors.white,
+  ),
+  "Etisalat": CarrierOption(
+    id: "Etisalat",
+    title: "خدمات اتصالات",
+    items: [
       "لشحن كارت عادي /فكه",
       "لشحن كارت دقائق لكل الشبكات",
       "لشحن ميكسات"
     ],
-    "cardNumberLen": 15,
-    "Codes": ['556', '556*2', '556*1'],
-    "image": "assets/options_background/Eitsaat.jpg",
-    "title": "خدمات اتصالات",
-    'color': {
-      'titlecol': Colors.green,
-      'cam': Colors.greenAccent,
-      'input': Colors.greenAccent,
-      'hint': Colors.greenAccent,
-      'border': Colors.greenAccent,
-      'label': Colors.green,
-      'counter': Colors.green[200]
-    },
-  },
-  "Orange": {
-    "Item": ["لشحن كارت عادي /فكه", "لشحن كارت اكستر"],
-    "cardNumberLen": 14,
-    "Codes": ['102', '102'],
-    "image": "assets/options_background/orange.jpg",
-    "title": "خدمات أورانج",
-    'color': {
-      'titlecol': Colors.orange,
-      'cam': Colors.orange,
-      'input': Colors.white,
-      'hint': Colors.orange,
-      'border': Colors.orange,
-      'label': Colors.yellow,
-      'counter': Colors.yellow
-    },
-  },
-  "We": {
-    "Item": ["لشحن كارت عادي/فكه", "لشحن وحدات ", "لشحن ميجابايت انترنت"],
-    "cardNumberLen": 16,
-    "Codes": ['555', '566', '599'],
-    "image": "assets/options_background/We.jpg",
-    "title": "خدمات وى",
-    'color': {
-      'titlecol': Colors.purple,
-      'cam': Colors.purpleAccent,
-      'input': Colors.purpleAccent,
-      'hint': Colors.white,
-      'border': Colors.purple,
-      'label': Colors.white,
-      'counter': Colors.white
-    },
-  }
+    cardNumberLen: 15,
+    codes: ['556', '556*2', '556*1'],
+    imagePath: "assets/options_background/Eitsaat.jpg",
+    primaryColor: Colors.green,
+    inputColor: Colors.greenAccent,
+    labelColor: Colors.green,
+    hintColor: Colors.greenAccent,
+  ),
+  "Orange": CarrierOption(
+    id: "Orange",
+    title: "خدمات أورانج",
+    items: [
+      "لشحن كارت عادي /فكه", 
+      "لشحن كارت اكستر"
+    ],
+    cardNumberLen: 14,
+    codes: ['102', '102'],
+    imagePath: "assets/options_background/orange.jpg",
+    primaryColor: Colors.orange,
+    inputColor: Colors.white,
+    labelColor: Colors.yellow,
+    hintColor: Colors.orange,
+  ),
+  "We": CarrierOption(
+    id: "We",
+    title: "خدمات وى",
+    items: [
+      "لشحن كارت عادي/فكه", 
+      "لشحن وحدات ", 
+      "لشحن ميجابايت انترنت"
+    ],
+    cardNumberLen: 16,
+    codes: ['555', '566', '599'],
+    imagePath: "assets/options_background/We.jpg",
+    primaryColor: Colors.purple,
+    inputColor: Colors.purpleAccent,
+    labelColor: Colors.white,
+    hintColor: Colors.white,
+  )
 };
 
-Map team_members = {
+final Map<String, List<String>> team_members = {
   "names": [
     'Mohamed Mohamed Atef Amhawy',
     'Alhassan Mohamed Abd El-Aziz',
@@ -95,7 +87,8 @@ Map team_members = {
     'assets/team_member/doaa_g.jfif'
   ]
 };
-List<String> steps = [
+
+const List<String> steps = [
   "first",
   "second",
   "third",

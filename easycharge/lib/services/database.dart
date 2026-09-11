@@ -2,6 +2,11 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 class ImageDatabase {
+  // Singleton pattern
+  static final ImageDatabase _instance = ImageDatabase._internal();
+  factory ImageDatabase() => _instance;
+  ImageDatabase._internal();
+
   String path = '';
   Database? database;
   int no_paths = 0;
@@ -15,6 +20,8 @@ class ImageDatabase {
   }
 
   Future<void> openDataBase() async {
+    if (database != null && database!.isOpen) return;
+    
     database = await openDatabase(
       path, 
       version: 1,
@@ -44,7 +51,6 @@ class ImageDatabase {
 
   Future<void> dataSpe(String condition) async {
     if (database == null) return;
-    // FIXED: Prevent SQL Injection using parameterized queries
     date_images = await database!.rawQuery("SELECT path FROM images WHERE date = ?", [condition]);
   }
 
@@ -54,7 +60,6 @@ class ImageDatabase {
     String date = "${now.year} - ${now.month} - ${now.day}";
 
     await database!.transaction((txn) async {
-      // FIXED: Use parameterization for insertion as well
       await txn.rawInsert('INSERT INTO images(path, date) VALUES(?, ?)', [imagePath, date]);
     });
   }
@@ -62,8 +67,14 @@ class ImageDatabase {
   Future<void> delete_images() async {
     if (database == null) return;
     await database!.transaction((txn) async {
-      // FIXED: rawInsert is not correct for DELETE, using execute or rawDelete
       await txn.rawDelete('DELETE FROM images');
     });
+  }
+
+  Future<void> close() async {
+    if (database != null && database!.isOpen) {
+      await database!.close();
+      database = null;
+    }
   }
 }
