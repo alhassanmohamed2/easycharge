@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:easycharge/services/database.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 class AiCamera {
   String cardnumber = "";
@@ -25,12 +27,19 @@ class AiCamera {
       // Extract only digits
       cardnumber = result.replaceAll(RegExp(r"\D"), "");
       
-      // Save image reference logic
+      // Get DB state to know what the next ID is
       await images.getDataBase();
       await images.openDataBase();
       await images.countImages();
-      // To properly implement saving the image file to documents directory, 
-      // we would copy it here, but keeping it simple for the refactor.
+      
+      // Save image to documents directory so it can be loaded in Charged Cards page
+      var extDir = await getApplicationDocumentsDirectory();
+      var dirPath = extDir.path;
+      String newPath = '$dirPath/${images.no_paths + 1}.jpg';
+      
+      // Copy the temporary camera image to the permanent storage location
+      File(image.path).copySync(newPath);
+      
     } catch (e) {
       cardnumber = "";
     }
