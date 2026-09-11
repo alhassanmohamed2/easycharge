@@ -14,13 +14,10 @@ class Home extends StatelessWidget {
       endDrawer: const AppDrawer(screen: "home"),
       appBar: const Appbar(),
       body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: const BoxDecoration(color: Color(0xFF4365A2),
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/home_screen/home.jpeg'),
-            fit: BoxFit.fitHeight,
-            alignment: Alignment.bottomCenter, // Keeps blocks anchored to the bottom
+            fit: BoxFit.cover,
           ),
         ),
         child: SafeArea(
@@ -28,7 +25,7 @@ class Home extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(24.0, 30.0, 24.0, 20.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(24.0, 30.0, 24.0, 10.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -57,12 +54,13 @@ class Home extends StatelessWidget {
                   ],
                 ),
               ),
-              // Use Wrap with FIXED sizes instead of GridView so the cards don't explode in size!
-              Center(
-                child: Wrap(
-                  spacing: 16,
-                  runSpacing: 16,
-                  alignment: WrapAlignment.center,
+              Expanded(
+                child: GridView.count(
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 24,
+                  crossAxisSpacing: 24,
+                  childAspectRatio: 0.95,
                   children: [
                     _buildCarrierCard(context, "Vodafone", "assets/home_screen/vodafone.png"),
                     _buildCarrierCard(context, "Orange", "assets/home_screen/orange.png"),
@@ -71,8 +69,6 @@ class Home extends StatelessWidget {
                   ],
                 ),
               ),
-              // Push everything to the top, leaving the bottom completely empty for the background image
-              const Spacer(),
             ],
           ),
         ),
@@ -90,17 +86,19 @@ class Home extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: () {
-            Navigator.pushNamed(context, "options", arguments: option);
+            Navigator.pushNamed(
+              context, 
+              "options",
+              arguments: option,
+            );
           },
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(30),
           splashColor: color.withOpacity(0.2),
           highlightColor: color.withOpacity(0.1),
           child: Container(
-            width: 140, // Strict maximum width
-            height: 160, // Strict maximum height
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.95),
-              borderRadius: BorderRadius.circular(25),
+              borderRadius: BorderRadius.circular(30),
               boxShadow: [
                 BoxShadow(
                   color: color.withOpacity(0.3),
@@ -132,15 +130,15 @@ class Home extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: color.withOpacity(0.1),
                       borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(25),
-                        bottomRight: Radius.circular(25),
+                        bottomLeft: Radius.circular(30),
+                        bottomRight: Radius.circular(30),
                       ),
                     ),
                     alignment: Alignment.center,
                     child: Text(
                       tr(carrierId),
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 18,
                         fontWeight: FontWeight.w800,
                         color: color.withOpacity(0.9),
                         letterSpacing: 0.5,
